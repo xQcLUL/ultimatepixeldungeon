@@ -1,0 +1,77 @@
+/*
+ *
+ *  * Pixel Dungeon
+ *  * Copyright (C) 2012-2015 Oleg Dolya
+ *  *
+ *  * Shattered Pixel Dungeon
+ *  * Copyright (C) 2014-2022 Evan Debenham
+ *  *
+ *  * Ultimate Pixel Dungeon
+ *  * Copyright (C) 2022
+ *  *
+ *  * This program is free software: you can redistribute it and/or modify
+ *  * it under the terms of the GNU General Public License as published by
+ *  * the Free Software Foundation, either version 3 of the License, or
+ *  * (at your option) any later version.
+ *  *
+ *  * This program is distributed in the hope that it will be useful,
+ *  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  * GNU General Public License for more details.
+ *  *
+ *  * You should have received a copy of the GNU General Public License
+ *  * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
+ */
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.mobidevelop.robovm:robovm-gradle-plugin:$robovmVersion"
+    }
+}
+
+apply plugin: "java"
+apply plugin: "robovm"
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+sourceCompatibility = targetCompatibility = appJavaCompatibility
+
+task updateRoboVMProps(){
+    def props = new Properties()
+    
+    props.setProperty ('appName', appName)
+    //append .apple because com.ultimatepixel.ultimatepixeldungeon was taken =(
+    props.setProperty ('appPackageName', appPackageName + ".apple")
+
+    props.setProperty ('appVersionCode', appVersionCode.toString())
+    props.setProperty ('appVersionName', appVersionName)
+    //parse out just #.#.# from version name, this is an apple requirement
+    props.setProperty ('appShortVersionName', (appVersionName =~ /\d+\.\d+\.\d+/)[0])
+
+    props.setProperty ('appMainclass', appPackageName + ".ios.IOSLauncher")
+    props.setProperty ('appExecutable', "IOSLauncher")
+
+    file("robovm.properties").withWriter { props.store(it, "Dynamically generated, do not commit to version control!") }
+}
+
+build.dependsOn updateRoboVMProps
+
+launchIPhoneSimulator.dependsOn build
+launchIPadSimulator.dependsOn build
+launchIOSDevice.dependsOn build
+createIPA.dependsOn build
+
+dependencies {
+    implementation project(':core')
+
+    implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+    implementation "com.mobidevelop.robovm:robovm-rt:$robovmVersion"
+    implementation "com.mobidevelop.robovm:robovm-cocoatouch:$robovmVersion"
+    implementation "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+    implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-ios"
+    implementation "com.badlogicgames.gdx-controllers:gdx-controllers-ios:$gdxControllersVersion"
+}

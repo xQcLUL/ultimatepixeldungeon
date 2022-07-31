@@ -1,0 +1,79 @@
+<!--
+  ~ /*
+  ~  * Pixel Dungeon
+  ~  * Copyright (C) 2012-2015 Oleg Dolya
+  ~  *
+  ~  * Shattered Pixel Dungeon
+  ~  * Copyright (C) 2014-2022 Evan Debenham
+  ~  *
+  ~  * Ultimate Pixel Dungeon
+  ~  * Copyright (C) 2022
+  ~  *
+  ~  * This program is free software: you can redistribute it and/or modify
+  ~  * it under the terms of the GNU General Public License as published by
+  ~  * the Free Software Foundation, either version 3 of the License, or
+  ~  * (at your option) any later version.
+  ~  *
+  ~  * This program is distributed in the hope that it will be useful,
+  ~  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~  * GNU General Public License for more details.
+  ~  *
+  ~  * You should have received a copy of the GNU General Public License
+  ~  * along with this program.  If not, see <http://www.gnu.org/licenses/>
+  ~  */
+  -->
+
+<config>
+	<executableName>${appExecutable}</executableName>
+	<mainClass>${appMainclass}</mainClass>
+	<os>ios</os>
+	<arch>thumbv7</arch>
+	<target>ios</target>
+	<iosInfoPList>Info.plist</iosInfoPList>
+	<resources>
+		<resource>
+			<directory>../core/src/main/assets</directory>
+			<includes>
+				<include>**</include>
+			</includes>
+			<skipPngCrush>true</skipPngCrush>
+		</resource>
+		<resource>
+			<directory>../desktop/src/main/assets</directory>
+			<includes>
+				<include>**</include>
+			</includes>
+			<skipPngCrush>true</skipPngCrush>
+		</resource>
+		<resource>
+			<directory>assets</directory>
+		</resource>
+	</resources>
+	<forceLinkClasses>
+		<pattern>com.badlogic.gdx.scenes.scene2d.ui.*</pattern>
+		<pattern>com.badlogic.gdx.graphics.g3d.particles.**</pattern>
+		<pattern>com.badlogic.gdx.controllers.IosControllerManager</pattern>
+		<pattern>com.android.okhttp.HttpHandler</pattern>
+		<pattern>com.android.okhttp.HttpsHandler</pattern>
+		<pattern>com.android.org.conscrypt.**</pattern>
+		<pattern>com.android.org.bouncycastle.jce.provider.BouncyCastleProvider</pattern>
+		<pattern>com.android.org.bouncycastle.jcajce.provider.keystore.BC$Mappings</pattern>
+		<pattern>com.android.org.bouncycastle.jcajce.provider.keystore.bc.BcKeyStoreSpi</pattern>
+		<pattern>com.android.org.bouncycastle.jcajce.provider.keystore.bc.BcKeyStoreSpi$Std</pattern>
+		<pattern>com.android.org.bouncycastle.jce.provider.PKIXCertPathValidatorSpi</pattern>
+		<pattern>com.android.org.bouncycastle.crypto.digests.AndroidDigestFactoryOpenSSL</pattern>
+		<pattern>org.apache.harmony.security.provider.cert.DRLCertFactory</pattern>
+		<pattern>org.apache.harmony.security.provider.crypto.CryptoProvider</pattern>
+	</forceLinkClasses>
+	<frameworks>
+		<framework>UIKit</framework>
+		<framework>OpenGLES</framework>
+		<framework>QuartzCore</framework>
+		<framework>CoreGraphics</framework>
+		<framework>OpenAL</framework>
+		<framework>AudioToolbox</framework>
+		<framework>AVFoundation</framework>
+		<framework>GameController</framework>
+	</frameworks>
+</config>
