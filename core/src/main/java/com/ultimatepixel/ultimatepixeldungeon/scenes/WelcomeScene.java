@@ -30,7 +30,6 @@ import com.ultimatepixel.ultimatepixeldungeon.GamesInProgress;
 import com.ultimatepixel.ultimatepixeldungeon.UPDSettings;
 import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.effects.BannerSprites;
-import com.ultimatepixel.ultimatepixeldungeon.effects.MoneyFloat;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Archs;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Icons;
@@ -38,10 +37,8 @@ import com.ultimatepixel.ultimatepixeldungeon.ui.RenderedTextBlock;
 import com.ultimatepixel.ultimatepixeldungeon.ui.StyledButton;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndError;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndHardNotification;
-import com.watabou.glwrap.Blending;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.ColorBlock;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.FileUtils;
@@ -100,9 +97,6 @@ public class WelcomeScene extends PixelScene {
 		title.y = 2 + (topRegion - title.height()) / 2f;
 
 		align(title);
-
-		placeTorch(title.x + 22, title.y + 46);
-		placeTorch(title.x + title.width - 22, title.y + 46);
 		
 		StyledButton okay = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(this, "continue")){
 			@Override
@@ -152,12 +146,6 @@ public class WelcomeScene extends PixelScene {
 		text.setPos((w - text.width()) / 2f, (topRegion + 2) + (textSpace - text.height())/2);
 		add(text);
 
-	}
-
-	private void placeTorch( float x, float y ) {
-		MoneyFloat fb = new MoneyFloat();
-		fb.setPos( x, y );
-		add( fb );
 	}
 
 	private void updateVersion(int previousVersion){

@@ -45,6 +45,8 @@ public class StoneOfShock extends Runestone {
 	
 	{
 		image = ItemSpriteSheet.STONE_SHOCK;
+
+		color = 0x005599;
 	}
 	
 	@Override

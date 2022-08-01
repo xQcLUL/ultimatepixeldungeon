@@ -26,19 +26,27 @@ package com.ultimatepixel.ultimatepixeldungeon.items.rings;
 
 import com.ultimatepixel.ultimatepixeldungeon.Badges;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
+import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.EnhancedRings;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Talent;
+import com.ultimatepixel.ultimatepixeldungeon.effects.Speck;
 import com.ultimatepixel.ultimatepixeldungeon.items.Generator;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.items.ItemStatusHandler;
 import com.ultimatepixel.ultimatepixeldungeon.items.KindofMisc;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.Runestone;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfAggression;
 import com.ultimatepixel.ultimatepixeldungeon.journal.Catalog;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
+import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSprite;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 import com.ultimatepixel.ultimatepixeldungeon.utils.GLog;
+import com.ultimatepixel.ultimatepixeldungeon.utils.Xml;
+import com.watabou.noosa.particles.Emitter;
+import com.watabou.noosa.particles.PixelParticle;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -49,6 +57,32 @@ import java.util.LinkedHashMap;
 public class Ring extends KindofMisc {
 	
 	protected Buff buff;
+
+	private Runestone stone1 = new Runestone.PlaceHolder();
+	private Runestone stone2 = new Runestone.PlaceHolder();
+	private Runestone stone3 = new Runestone.PlaceHolder();
+
+	public void setRunestone(Runestone s, int slotActive) {
+		switch (slotActive){
+			case 0:
+				stone1 = s;
+				break;
+			case 1:
+				stone2 = s;
+				break;
+			case 2:
+				stone3 = s;
+				break;
+		}
+	}
+
+	public ArrayList<Runestone> stoneSlots( Hero hero ) {
+		ArrayList<Runestone> stoneSlots = new ArrayList<>();
+		stoneSlots.add( stone1 );
+		stoneSlots.add( stone2 );
+		stoneSlots.add( stone3 );
+		return stoneSlots;
+	}
 
 	private static final LinkedHashMap<String, Integer> gems = new LinkedHashMap<String, Integer>() {
 		{
@@ -200,7 +234,27 @@ public class Ring extends KindofMisc {
 		
 		return this;
 	}
-	
+
+	@Override
+	public Emitter emitter() {
+		Emitter emitter = new Emitter();
+		if (!(stone1 instanceof Runestone.PlaceHolder) || !(stone2 instanceof Runestone.PlaceHolder) || !(stone3 instanceof Runestone.PlaceHolder)) {
+			emitter.pos(ItemSpriteSheet.film.width(image)/2f + 2f, ItemSpriteSheet.film.height(image)/3f);
+			emitter.fillTarget = false;
+			emitter.pour(Speck.factory( Speck.RED_LIGHT ), 0.6f);
+		}
+		return emitter;
+	}
+
+	@Override
+	public ItemSprite.Glowing glowing() {
+		ItemSprite.Glowing COLOR = null;
+		if (!(stone1 instanceof Runestone.PlaceHolder) && !(stone2 instanceof Runestone.PlaceHolder) && !(stone3 instanceof Runestone.PlaceHolder)) {
+			 COLOR = new ItemSprite.Glowing(stone1.color + stone2.color + stone3.color);
+		}
+		return COLOR;
+	}
+
 	@Override
 	public boolean isIdentified() {
 		return super.isIdentified() && isKnown();
@@ -271,17 +325,31 @@ public class Ring extends KindofMisc {
 	}
 
 	private static final String LEVELS_TO_ID    = "levels_to_ID";
+	private static final String STONE1		    = "stone_1";
+	private static final String STONE2		    = "stone_2";
+	private static final String STONE3		    = "stone_3";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
 		bundle.put( LEVELS_TO_ID, levelsToID );
+		bundle.put(STONE1, stone1.getClass());
+		bundle.put(STONE2, stone2.getClass());
+		bundle.put(STONE3, stone3.getClass());
+
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		levelsToID = bundle.getFloat( LEVELS_TO_ID );
+		try {
+			stone1 = (Runestone) bundle.getClass(STONE1).newInstance();
+			stone2 = (Runestone) bundle.getClass(STONE2).newInstance();
+			stone3 = (Runestone) bundle.getClass(STONE3).newInstance();
+		} catch (Exception e) {
+			UltimatePixelDungeon.reportException(e);
+		}
 	}
 	
 	public void onHeroGainExp( float levelPercent, Hero hero ){

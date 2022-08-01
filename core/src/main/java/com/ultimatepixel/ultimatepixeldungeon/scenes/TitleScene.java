@@ -30,7 +30,6 @@ import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.GamesInProgress;
 import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.effects.BannerSprites;
-import com.ultimatepixel.ultimatepixeldungeon.effects.MoneyFloat;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Languages;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.CharSprite;
@@ -77,9 +76,6 @@ public class TitleScene extends PixelScene {
 		title.y = 2 + (topRegion - title.height()) / 2f;
 
 		align(title);
-
-		placeFloatingMoney(title.x + 22, title.y + 46);
-		placeFloatingMoney(title.x + title.width - 22, title.y + 46);
 
 		final Chrome.Type GREY_TR = Chrome.Type.GREY_BUTTON_TR;
 		
@@ -176,12 +172,6 @@ public class TitleScene extends PixelScene {
 		}
 
 		fadeIn();
-	}
-	
-	private void placeFloatingMoney(float x, float y ) {
-		MoneyFloat fb = new MoneyFloat();
-		fb.setPos( x, y );
-		add( fb );
 	}
 
 	private static class SettingsButton extends StyledButton {

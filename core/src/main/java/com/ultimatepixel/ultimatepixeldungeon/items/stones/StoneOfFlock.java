@@ -45,6 +45,8 @@ public class StoneOfFlock extends Runestone {
 
 		//the sheep will press the cell instead
 		pressesCell = false;
+
+		color = 0xE8D6CD;
 	}
 	
 	@Override

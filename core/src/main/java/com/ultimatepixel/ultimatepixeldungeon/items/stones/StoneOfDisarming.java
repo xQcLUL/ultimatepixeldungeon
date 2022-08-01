@@ -48,6 +48,8 @@ public class StoneOfDisarming extends Runestone {
 
 		//so traps do not activate before the effect
 		pressesCell = false;
+
+		color = 0x550022;
 	}
 
 	@Override

@@ -40,6 +40,8 @@ public class StoneOfClairvoyance extends Runestone {
 	
 	{
 		image = ItemSpriteSheet.STONE_CLAIRVOYANCE;
+
+		color = 0x1BAB7E;
 	}
 	
 	@Override

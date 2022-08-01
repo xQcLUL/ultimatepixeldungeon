@@ -53,6 +53,8 @@ public class StoneOfIntuition extends InventoryStone {
 	
 	{
 		image = ItemSpriteSheet.STONE_INTUITION;
+
+		color = 0x116655;
 	}
 
 	@Override

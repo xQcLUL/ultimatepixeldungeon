@@ -42,6 +42,8 @@ public class StoneOfEnchantment extends InventoryStone {
 		image = ItemSpriteSheet.STONE_ENCHANT;
 
 		unique = true;
+
+		color = 0x53F767;
 	}
 
 	@Override

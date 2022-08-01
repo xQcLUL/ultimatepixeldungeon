@@ -53,11 +53,16 @@ import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfHealing;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfInvisibility;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfMindVision;
+import com.ultimatepixel.ultimatepixeldungeon.items.rings.RingOfAccuracy;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfRage;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfAggression;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfBlast;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfBlink;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfClairvoyance;
 import com.ultimatepixel.ultimatepixeldungeon.items.wands.WandOfMagicMissile;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.SpiritBow;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee.Dagger;
@@ -100,6 +105,11 @@ public enum HeroClass {
 		waterskin.collect();
 
 		new ScrollOfIdentify().identify();
+
+		new RingOfAccuracy().identify().collect();
+		new StoneOfBlast().identify().collect();
+		new StoneOfBlink().identify().collect();
+		new StoneOfClairvoyance().identify().collect();
 
 		switch (this) {
 			case WARRIOR:

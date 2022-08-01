@@ -37,12 +37,14 @@ import com.ultimatepixel.ultimatepixeldungeon.items.bags.MagicalHolster;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.PotionBandolier;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.ScrollHolder;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.VelvetPouch;
+import com.ultimatepixel.ultimatepixeldungeon.items.rings.Ring;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.GameScene;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.PixelScene;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.CharSprite;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndBag;
+import com.ultimatepixel.ultimatepixeldungeon.windows.WndRing;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndUseItem;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.GameAction;
@@ -497,7 +499,11 @@ public class InventoryPane extends Component {
 				updateInventory();
 			} else {
 				targetingSlot = this;
-				GameScene.show(new WndUseItem( null, item ));
+				if(item instanceof Ring){
+					GameScene.show(new WndRing( null, item ));
+				} else {
+					GameScene.show(new WndUseItem( null, item ));
+				}
 			}
 		}
 

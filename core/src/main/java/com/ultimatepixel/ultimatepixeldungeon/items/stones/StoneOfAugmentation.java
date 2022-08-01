@@ -44,6 +44,8 @@ public class StoneOfAugmentation extends InventoryStone {
 	{
 		preferredBag = Belongings.Backpack.class;
 		image = ItemSpriteSheet.STONE_AUGMENTATION;
+
+		color = 0x147214;
 	}
 
 	@Override
