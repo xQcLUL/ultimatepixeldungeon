@@ -283,7 +283,7 @@ public class Ring extends KindofMisc {
 				s++;
 			}
 		}
-		if(s > 0) endString += "\nRunestones used: _"+s+"_";
+		if(s > 0) endString += "\n"+Messages.get(this, "rune_stones_used")+": _"+s+"_";
 		return endString;
 	}
 	
