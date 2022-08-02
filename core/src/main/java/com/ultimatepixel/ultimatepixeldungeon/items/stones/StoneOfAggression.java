@@ -45,6 +45,9 @@ public class StoneOfAggression extends Runestone {
 		image = ItemSpriteSheet.STONE_AGGRESSION;
 
 		color = 0x9F2727;
+
+		dmgSkill = 1;
+		accSkill = 0.9f;
 	}
 	
 	@Override

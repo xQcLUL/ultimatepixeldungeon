@@ -50,6 +50,10 @@ public class StoneOfDisarming extends Runestone {
 		pressesCell = false;
 
 		color = 0x550022;
+
+		canSupriseAttack = true;
+		speedSkill = 1.3f;
+		dmgSkill = -1;
 	}
 
 	@Override

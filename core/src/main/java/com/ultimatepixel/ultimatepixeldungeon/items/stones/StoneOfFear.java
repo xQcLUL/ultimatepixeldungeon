@@ -42,6 +42,9 @@ public class StoneOfFear extends Runestone {
 		image = ItemSpriteSheet.STONE_FEAR;
 
 		color = 0x990022;
+
+		dmgSkill = -2;
+		drSkill = 3;
 	}
 	
 	@Override

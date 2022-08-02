@@ -46,6 +46,8 @@ public class StoneOfAugmentation extends InventoryStone {
 		image = ItemSpriteSheet.STONE_AUGMENTATION;
 
 		color = 0x147214;
+
+		drSkill = 1;
 	}
 
 	@Override

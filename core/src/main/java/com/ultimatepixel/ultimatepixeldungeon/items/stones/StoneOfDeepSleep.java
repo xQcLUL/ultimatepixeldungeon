@@ -39,6 +39,9 @@ public class StoneOfDeepSleep extends Runestone {
 		image = ItemSpriteSheet.STONE_SLEEP;
 
 		color = 0x5050C3;
+
+		dmgSkill = -1;
+		drSkill = 2;
 	}
 	
 	@Override

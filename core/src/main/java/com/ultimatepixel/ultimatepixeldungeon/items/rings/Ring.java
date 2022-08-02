@@ -55,6 +55,33 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 public class Ring extends KindofMisc {
+
+	public float getEvasionStoneSkill(){
+		return stone1.evasionSkill+stone2.evasionSkill+stone3.evasionSkill;
+	}
+
+	public int getDrStoneSkill(){
+		return stone1.drSkill+stone2.drSkill+stone3.drSkill;
+	}
+
+	public int getDmgStoneSkill(){
+		return stone1.dmgSkill+stone2.dmgSkill+stone3.dmgSkill;
+	}
+
+	public float getSpeedStoneSkill(){
+		return stone1.speedSkill+stone2.speedSkill+stone3.speedSkill;
+	}
+
+	public float getAccStoneSkill(){
+		return stone1.accSkill+stone2.accSkill+stone3.accSkill;
+	}
+
+	public boolean getCanSurpriseAttackStoneSkill(){
+		if(stone1.canSupriseAttack) return true;
+		if(stone2.canSupriseAttack) return true;
+		if(stone3.canSupriseAttack) return true;
+		return false;
+	}
 	
 	protected Buff buff;
 
@@ -76,7 +103,7 @@ public class Ring extends KindofMisc {
 		}
 	}
 
-	public ArrayList<Runestone> stoneSlots( Hero hero ) {
+	public ArrayList<Runestone> stoneSlots() {
 		ArrayList<Runestone> stoneSlots = new ArrayList<>();
 		stoneSlots.add( stone1 );
 		stoneSlots.add( stone2 );

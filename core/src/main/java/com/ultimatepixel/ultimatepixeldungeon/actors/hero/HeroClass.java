@@ -60,9 +60,17 @@ import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfMagicMapping
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfRage;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfUpgrade;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfAggression;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfAugmentation;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfBlast;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfBlink;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfClairvoyance;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfDeepSleep;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfDisarming;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfEnchantment;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfFear;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfFlock;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfIntuition;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfShock;
 import com.ultimatepixel.ultimatepixeldungeon.items.wands.WandOfMagicMissile;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.SpiritBow;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee.Dagger;
@@ -106,10 +114,20 @@ public enum HeroClass {
 
 		new ScrollOfIdentify().identify();
 
+		//TODO: remove this
 		new RingOfAccuracy().identify().collect();
+		new StoneOfAggression().identify().collect();
+		new StoneOfAugmentation().identify().collect();
 		new StoneOfBlast().identify().collect();
 		new StoneOfBlink().identify().collect();
 		new StoneOfClairvoyance().identify().collect();
+		new StoneOfDeepSleep().identify().collect();
+		new StoneOfDisarming().identify().collect();
+		new StoneOfEnchantment().identify().collect();
+		new StoneOfFear().identify().collect();
+		new StoneOfFlock().identify().collect();
+		new StoneOfIntuition().identify().collect();
+		new StoneOfShock().identify().collect();
 
 		switch (this) {
 			case WARRIOR:

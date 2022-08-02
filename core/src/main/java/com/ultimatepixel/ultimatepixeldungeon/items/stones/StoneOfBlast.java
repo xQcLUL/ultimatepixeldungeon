@@ -33,6 +33,8 @@ public class StoneOfBlast extends Runestone {
 		image = ItemSpriteSheet.STONE_BLAST;
 
 		color = 0xE3AB3F;
+
+		canSupriseAttack = true;
 	}
 	
 	@Override

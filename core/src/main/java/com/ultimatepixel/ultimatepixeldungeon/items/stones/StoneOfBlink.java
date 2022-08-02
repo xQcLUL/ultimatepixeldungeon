@@ -37,6 +37,9 @@ public class StoneOfBlink extends Runestone {
 		image = ItemSpriteSheet.STONE_BLINK;
 
 		color = 0x903B90;
+
+		speedSkill = 1.2f;
+		accSkill = 1.2f;
 	}
 	
 	private static Ballistica throwPath;

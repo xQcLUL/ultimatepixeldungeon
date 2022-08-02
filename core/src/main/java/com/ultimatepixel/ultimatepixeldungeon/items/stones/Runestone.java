@@ -30,6 +30,13 @@ import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 
 public abstract class Runestone extends Item {
+
+	public float evasionSkill = 1f;
+	public int drSkill = 0;
+	public int dmgSkill = 0;
+	public float speedSkill = 1f;
+	public boolean canSupriseAttack = false;
+	public float accSkill = 1f;
 	
 	{
 		stackable = true;

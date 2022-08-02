@@ -101,6 +101,7 @@ import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfExperience;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfHealing;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.elixirs.ElixirOfMight;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
+import com.ultimatepixel.ultimatepixeldungeon.items.rings.Ring;
 import com.ultimatepixel.ultimatepixeldungeon.items.rings.RingOfAccuracy;
 import com.ultimatepixel.ultimatepixeldungeon.items.rings.RingOfEvasion;
 import com.ultimatepixel.ultimatepixeldungeon.items.rings.RingOfForce;
@@ -463,6 +464,16 @@ public class Hero extends Char {
 				accuracy *= 1.5f;
 			}
 		}
+
+		//get the accuracy skill from the rune
+		if(belongings.ring() != null){
+			accuracy *= belongings.ring().getAccStoneSkill();
+			GLog.h("1");
+		}
+		if(belongings.misc() instanceof Ring && belongings.misc() != null){
+			accuracy *= ((Ring) belongings.misc()).getAccStoneSkill();
+			GLog.h("1");
+		}
 		
 		if (wep != null) {
 			return (int)(attackSkill * accuracy * wep.accuracyFactor( this ));
@@ -484,6 +495,16 @@ public class Hero extends Char {
 		float evasion = defenseSkill;
 		
 		evasion *= RingOfEvasion.evasionMultiplier( this );
+
+		//get the evasion skill from the rune
+		if(belongings.ring() != null){
+			evasion *= belongings.ring().getEvasionStoneSkill();
+			GLog.h("2");
+		}
+		if(belongings.misc() instanceof Ring && belongings.misc() != null){
+			evasion *= ((Ring) belongings.misc()).getEvasionStoneSkill();
+			GLog.h("2");
+		}
 		
 		if (paralysed > 0) {
 			evasion /= 2;
@@ -532,6 +553,16 @@ public class Hero extends Char {
 		if (buff(HoldFast.class) != null){
 			dr += Random.NormalIntRange(0, 2*pointsInTalent(Talent.HOLD_FAST));
 		}
+
+		//get the dr skill from the rune
+		if(belongings.ring() != null){
+			dr += belongings.ring().getDrStoneSkill();
+			GLog.h("3");
+		}
+		if(belongings.misc() instanceof Ring && belongings.misc() != null){
+			dr += ((Ring) belongings.misc()).getDrStoneSkill();
+			GLog.h("3");
+		}
 		
 		return dr;
 	}
@@ -548,6 +579,16 @@ public class Hero extends Char {
 			dmg = RingOfForce.damageRoll(this);
 		}
 		if (dmg < 0) dmg = 0;
+
+		//get the dmg skill from the rune
+		if(belongings.ring() != null){
+			dmg += belongings.ring().getDmgStoneSkill();
+			GLog.h("4");
+		}
+		if(belongings.misc() instanceof Ring && belongings.misc() != null){
+			dmg += ((Ring) belongings.misc()).getDmgStoneSkill();
+			GLog.h("4");
+		}
 		
 		return dmg;
 	}
@@ -577,12 +618,35 @@ public class Hero extends Char {
 		}
 
 		speed = AscensionChallenge.modifyHeroSpeed(speed);
+
+		//get the speed skill from the rune
+		if(belongings.ring() != null){
+			speed *= belongings.ring().getSpeedStoneSkill();
+			GLog.h("5");
+		}
+		if(belongings.misc() instanceof Ring && belongings.misc() != null){
+			speed *= ((Ring) belongings.misc()).getSpeedStoneSkill();
+			GLog.h("5");
+		}
 		
 		return speed;
 		
 	}
 
 	public boolean canSurpriseAttack(){
+		//get the speed skill from the rune
+		if(belongings.misc() instanceof Ring && belongings.misc() != null){
+			if(((Ring)belongings.misc()).getCanSurpriseAttackStoneSkill()){
+				GLog.h("6");
+				return true;
+			}
+		}
+		if(belongings.ring() != null){
+			if(belongings.ring().getCanSurpriseAttackStoneSkill()){
+				GLog.h("6");
+				return true;
+			}
+		}
 		if (belongings.weapon() == null || !(belongings.weapon() instanceof Weapon))    return true;
 		if (STR() < ((Weapon)belongings.weapon()).STRReq())                             return false;
 		if (belongings.weapon() instanceof Flail)                                       return false;

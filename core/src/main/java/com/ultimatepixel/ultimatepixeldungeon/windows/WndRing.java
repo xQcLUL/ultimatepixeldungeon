@@ -81,12 +81,12 @@ public class WndRing extends WndInfoItem{
             @Override
             public void onSelect(Item i) {
                 if(i instanceof Runestone){
-                    if(!(((Ring) item).stoneSlots(Dungeon.hero).get(activeSlot) instanceof Runestone.PlaceHolder)){
-                        ((Ring) item).stoneSlots(Dungeon.hero).get(activeSlot).doDrop(Dungeon.hero);
+                    if(!(((Ring) item).stoneSlots().get(activeSlot) instanceof Runestone.PlaceHolder)){
+                        ((Ring) item).stoneSlots().get(activeSlot).doDrop(Dungeon.hero);
                     }
                     Runestone st = (Runestone) i.detach(Dungeon.hero.belongings.backpack);
                     ((Ring) item).setRunestone(st, activeSlot);
-                    ((Ring) item).stoneSlots(Dungeon.hero).set(activeSlot, st);
+                    ((Ring) item).stoneSlots().set(activeSlot, st);
                     switch (activeSlot){
                         case 0:
                             inv1.getSprite().view(st);
@@ -104,7 +104,7 @@ public class WndRing extends WndInfoItem{
 
         if (Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(item) && item instanceof Ring) {
             y += GAP;
-           inv1 = new InventorySlot(((Ring) item).stoneSlots(Dungeon.hero).get(0)){
+           inv1 = new InventorySlot(((Ring) item).stoneSlots().get(0)){
                 @Override
                 protected void onClick() {
                     super.onClick();
@@ -112,7 +112,7 @@ public class WndRing extends WndInfoItem{
                     GameScene.selectItem(itemSelector);
                 }
            };
-           inv2 = new InventorySlot(((Ring) item).stoneSlots(Dungeon.hero).get(1)){
+           inv2 = new InventorySlot(((Ring) item).stoneSlots().get(1)){
                 @Override
                 protected void onClick() {
                     super.onClick();
@@ -120,7 +120,7 @@ public class WndRing extends WndInfoItem{
                     GameScene.selectItem(itemSelector);
                 }
             };
-            inv3 = new InventorySlot(((Ring) item).stoneSlots(Dungeon.hero).get(2)){
+            inv3 = new InventorySlot(((Ring) item).stoneSlots().get(2)){
                 @Override
                 protected void onClick() {
                     super.onClick();

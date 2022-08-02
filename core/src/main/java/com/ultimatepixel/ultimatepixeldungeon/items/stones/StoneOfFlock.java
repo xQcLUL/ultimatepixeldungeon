@@ -47,6 +47,9 @@ public class StoneOfFlock extends Runestone {
 		pressesCell = false;
 
 		color = 0xE8D6CD;
+
+		drSkill = 2;
+		speedSkill = 0.9f;
 	}
 	
 	@Override
