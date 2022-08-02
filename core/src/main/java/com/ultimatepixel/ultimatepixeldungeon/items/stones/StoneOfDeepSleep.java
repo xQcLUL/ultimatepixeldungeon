@@ -42,6 +42,7 @@ public class StoneOfDeepSleep extends Runestone {
 
 		dmgSkill = -1;
 		drSkill = 2;
+		icon_dr = true;
 	}
 	
 	@Override

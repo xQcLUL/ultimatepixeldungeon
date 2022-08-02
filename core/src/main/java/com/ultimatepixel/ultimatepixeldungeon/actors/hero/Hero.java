@@ -468,11 +468,9 @@ public class Hero extends Char {
 		//get the accuracy skill from the rune
 		if(belongings.ring() != null){
 			accuracy *= belongings.ring().getAccStoneSkill();
-			GLog.h("1");
 		}
 		if(belongings.misc() instanceof Ring && belongings.misc() != null){
 			accuracy *= ((Ring) belongings.misc()).getAccStoneSkill();
-			GLog.h("1");
 		}
 		
 		if (wep != null) {
@@ -499,11 +497,9 @@ public class Hero extends Char {
 		//get the evasion skill from the rune
 		if(belongings.ring() != null){
 			evasion *= belongings.ring().getEvasionStoneSkill();
-			GLog.h("2");
 		}
 		if(belongings.misc() instanceof Ring && belongings.misc() != null){
 			evasion *= ((Ring) belongings.misc()).getEvasionStoneSkill();
-			GLog.h("2");
 		}
 		
 		if (paralysed > 0) {
@@ -557,11 +553,9 @@ public class Hero extends Char {
 		//get the dr skill from the rune
 		if(belongings.ring() != null){
 			dr += belongings.ring().getDrStoneSkill();
-			GLog.h("3");
 		}
 		if(belongings.misc() instanceof Ring && belongings.misc() != null){
 			dr += ((Ring) belongings.misc()).getDrStoneSkill();
-			GLog.h("3");
 		}
 		
 		return dr;
@@ -583,11 +577,9 @@ public class Hero extends Char {
 		//get the dmg skill from the rune
 		if(belongings.ring() != null){
 			dmg += belongings.ring().getDmgStoneSkill();
-			GLog.h("4");
 		}
 		if(belongings.misc() instanceof Ring && belongings.misc() != null){
 			dmg += ((Ring) belongings.misc()).getDmgStoneSkill();
-			GLog.h("4");
 		}
 		
 		return dmg;
@@ -622,28 +614,39 @@ public class Hero extends Char {
 		//get the speed skill from the rune
 		if(belongings.ring() != null){
 			speed *= belongings.ring().getSpeedStoneSkill();
-			GLog.h("5");
 		}
 		if(belongings.misc() instanceof Ring && belongings.misc() != null){
 			speed *= ((Ring) belongings.misc()).getSpeedStoneSkill();
-			GLog.h("5");
 		}
 		
 		return speed;
 		
 	}
 
-	public boolean canSurpriseAttack(){
+	public boolean canSurpriseAttackRing(){
 		//get the speed skill from the rune
 		if(belongings.misc() instanceof Ring && belongings.misc() != null){
 			if(((Ring)belongings.misc()).getCanSurpriseAttackStoneSkill()){
-				GLog.h("6");
 				return true;
 			}
 		}
 		if(belongings.ring() != null){
 			if(belongings.ring().getCanSurpriseAttackStoneSkill()){
-				GLog.h("6");
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean canSurpriseAttack(){
+		//get the speed skill from the rune
+		if(belongings.misc() instanceof Ring && belongings.misc() != null){
+			if(((Ring)belongings.misc()).getCanSurpriseAttackStoneSkill()){
+				return true;
+			}
+		}
+		if(belongings.ring() != null){
+			if(belongings.ring().getCanSurpriseAttackStoneSkill()){
 				return true;
 			}
 		}

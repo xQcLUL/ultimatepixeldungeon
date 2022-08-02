@@ -47,6 +47,7 @@ public class StoneOfAggression extends Runestone {
 		color = 0x9F2727;
 
 		dmgSkill = 1;
+		icon_dmg = true;
 		accSkill = 0.9f;
 	}
 	

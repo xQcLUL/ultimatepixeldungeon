@@ -49,6 +49,7 @@ public class StoneOfFlock extends Runestone {
 		color = 0xE8D6CD;
 
 		drSkill = 2;
+		icon_dr = true;
 		speedSkill = 0.9f;
 	}
 	

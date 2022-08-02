@@ -49,8 +49,11 @@ public class StoneOfShock extends Runestone {
 		color = 0x005599;
 
 		evasionSkill = 1.1f;
+		icon_evasion = true;
 		dmgSkill = 1;
+		icon_dmg = true;
 		accSkill = 1.1f;
+		icon_acc = true;
 	}
 	
 	@Override

@@ -57,6 +57,7 @@ public class StoneOfIntuition extends InventoryStone {
 		color = 0x116655;
 
 		evasionSkill = 1.6f;
+		icon_evasion = true;
 		drSkill = -1;
 	}
 

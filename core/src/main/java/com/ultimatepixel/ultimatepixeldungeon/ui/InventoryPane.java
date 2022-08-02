@@ -499,7 +499,7 @@ public class InventoryPane extends Component {
 				updateInventory();
 			} else {
 				targetingSlot = this;
-				if(item instanceof Ring){
+				if(item instanceof Ring && ((Ring) item).isKnown()){
 					GameScene.show(new WndRing( null, item ));
 				} else {
 					GameScene.show(new WndUseItem( null, item ));

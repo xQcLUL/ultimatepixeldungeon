@@ -101,7 +101,7 @@ public class WndQuickBag extends Window {
 				@Override
 				protected void onClick() {
 					if (Dungeon.hero == null || !Dungeon.hero.isAlive() || !Dungeon.hero.belongings.contains(item)){
-						if(item instanceof Ring){
+						if(item instanceof Ring && ((Ring) item).isKnown()){
 							Game.scene().addToFront(new WndRing(WndQuickBag.this, item));
 						} else {
 							Game.scene().addToFront(new WndUseItem(WndQuickBag.this, item));

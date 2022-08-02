@@ -45,6 +45,7 @@ public class StoneOfFear extends Runestone {
 
 		dmgSkill = -2;
 		drSkill = 3;
+		icon_dr = true;
 	}
 	
 	@Override

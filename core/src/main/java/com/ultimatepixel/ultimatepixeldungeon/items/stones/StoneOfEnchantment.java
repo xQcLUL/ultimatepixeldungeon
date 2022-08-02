@@ -46,7 +46,9 @@ public class StoneOfEnchantment extends InventoryStone {
 		color = 0x53F767;
 
 		dmgSkill = 2;
+		icon_dmg = true;
 		drSkill = 2;
+		icon_dr = true;
 	}
 
 	@Override

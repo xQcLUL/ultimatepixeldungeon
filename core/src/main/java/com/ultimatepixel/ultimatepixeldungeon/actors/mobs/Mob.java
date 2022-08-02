@@ -659,9 +659,10 @@ public abstract class Mob extends Char {
 	}
 
 	public boolean surprisedBy( Char enemy, boolean attacking ){
-		return enemy == Dungeon.hero
-				&& (enemy.invisible > 0 || !enemySeen)
-				&& (!attacking || ((Hero)enemy).canSurpriseAttack());
+		if(((Hero) enemy).canSurpriseAttackRing()){
+			return true;
+		}
+		return enemy == Dungeon.hero && (enemy.invisible > 0 || !enemySeen) && (!attacking || ((Hero)enemy).canSurpriseAttack());
 	}
 
 	public void aggro( Char ch ) {

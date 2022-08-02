@@ -243,8 +243,48 @@ public class Ring extends KindofMisc {
 		if (isKnown()) {
 			desc += "\n\n" + statsInfo();
 		}
+
+		if (!(stone1 instanceof Runestone.PlaceHolder) || !(stone2 instanceof Runestone.PlaceHolder) || !(stone3 instanceof Runestone.PlaceHolder)) {
+			desc += "\n\n" + runeStats();
+		}
 		
 		return desc;
+	}
+
+	private String runeStats(){
+		String endString = "";
+		if(getEvasionStoneSkill() != 3f){
+			String evasion = Messages.get(Ring.class, "rune_evasion")+ ": _"+Math.round((getEvasionStoneSkill()-3f)*100)+"%_"+"\n";
+			endString += evasion;
+		}
+		if(getDrStoneSkill() != 0){
+			String drString = Messages.get(Ring.class, "rune_dr")+": _"+getDrStoneSkill()+"_\n";
+			endString += drString;
+		}
+		if(getDmgStoneSkill() != 0){
+			String dmgString = Messages.get(Ring.class, "rune_dmg")+": _"+getDmgStoneSkill()+"_\n";
+			endString += dmgString;
+		}
+		if(getSpeedStoneSkill() != 3f){
+			String speedString = Messages.get(Ring.class, "rune_speed")+": _"+Math.round((getSpeedStoneSkill()-3f)*100)+"%_"+"\n";
+			endString += speedString;
+		}
+		if(getCanSurpriseAttackStoneSkill()){
+			String surString = Messages.get(Ring.class, "rune_surprise")+": _"+getCanSurpriseAttackStoneSkill()+"_\n";
+			endString += surString;
+		}
+		if(getAccStoneSkill() != 3f){
+			String accString = Messages.get(Ring.class, "rune_acc")+": _"+Math.round((getAccStoneSkill()-3f)*100)+"%_"+"\n";
+			endString += accString;
+		}
+		int s = 0;
+		for(Item i : stoneSlots()){
+			if(!(i instanceof Runestone.PlaceHolder)){
+				s++;
+			}
+		}
+		if(s > 0) endString += "\nRunestones used: _"+s+"_";
+		return endString;
 	}
 	
 	protected String statsInfo(){

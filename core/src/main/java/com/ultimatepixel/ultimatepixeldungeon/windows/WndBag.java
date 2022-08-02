@@ -288,7 +288,7 @@ public class WndBag extends WndTabbed {
 
 				} else {
 
-					if(item instanceof Ring){
+					if(item instanceof Ring && ((Ring) item).isKnown()){
 						Game.scene().addToFront(new WndRing(WndBag.this, item));
 					} else {
 						Game.scene().addToFront(new WndUseItem(WndBag.this, item));

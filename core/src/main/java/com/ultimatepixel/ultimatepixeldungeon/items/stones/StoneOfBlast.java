@@ -35,6 +35,7 @@ public class StoneOfBlast extends Runestone {
 		color = 0xE3AB3F;
 
 		canSupriseAttack = true;
+		icon_surprise = true;
 	}
 	
 	@Override

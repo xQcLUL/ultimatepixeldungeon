@@ -37,6 +37,13 @@ public abstract class Runestone extends Item {
 	public float speedSkill = 1f;
 	public boolean canSupriseAttack = false;
 	public float accSkill = 1f;
+
+	public boolean icon_evasion = false;
+	public boolean icon_dr = false;
+	public boolean icon_dmg = false;
+	public boolean icon_speed = false;
+	public boolean icon_surprise = false;
+	public boolean icon_acc = false;
 	
 	{
 		stackable = true;

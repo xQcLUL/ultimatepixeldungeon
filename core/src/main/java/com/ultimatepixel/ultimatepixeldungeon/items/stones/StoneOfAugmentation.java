@@ -48,6 +48,7 @@ public class StoneOfAugmentation extends InventoryStone {
 		color = 0x147214;
 
 		drSkill = 1;
+		icon_dr = true;
 	}
 
 	@Override

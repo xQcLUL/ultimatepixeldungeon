@@ -52,7 +52,9 @@ public class StoneOfDisarming extends Runestone {
 		color = 0x550022;
 
 		canSupriseAttack = true;
+		icon_surprise = true;
 		speedSkill = 1.3f;
+		icon_speed = true;
 		dmgSkill = -1;
 	}
 
