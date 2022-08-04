@@ -27,7 +27,10 @@ package com.ultimatepixel.ultimatepixeldungeon.items.stones;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Invisibility;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
+import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
+
+import java.util.ArrayList;
 
 public abstract class Runestone extends Item {
 
@@ -44,6 +47,9 @@ public abstract class Runestone extends Item {
 	public boolean icon_speed = false;
 	public boolean icon_surprise = false;
 	public boolean icon_acc = false;
+
+	public int extraMaxDmgWeapon = 0;
+	public int extraMinDmgWeapon = 0;
 	
 	{
 		stackable = true;
@@ -86,6 +92,26 @@ public abstract class Runestone extends Item {
 	@Override
 	public int energyVal() {
 		return 3 * quantity;
+	}
+
+	@Override
+	public String desc() {
+		String s = "";
+		s += "\n\n";
+		String weaponDmg = Messages.get(Runestone.class, "extra_max_damage")+": _"+this.extraMaxDmgWeapon+"_ \n"+
+				Messages.get(Runestone.class, "extra_min_damage")+": _"+this.extraMinDmgWeapon+"_ ";
+		s += weaponDmg;
+		s += "\n\n";
+		String ringEffect = (this.evasionSkill != 1f ? Messages.get(Runestone.class, "evasion")+": _"+Math.round((this.evasionSkill-1f)*100)+"%_ &" : "")+
+				(this.drSkill != 0 ? Messages.get(Runestone.class, "dr")+": _"+this.drSkill+"_ &" : "")+
+				(this.dmgSkill != 0 ? Messages.get(Runestone.class, "dmg")+": _"+this.dmgSkill+"_ &" : "")+
+				(this.speedSkill != 1f ? Messages.get(Runestone.class, "speed")+": _"+Math.round((this.speedSkill-1f)*100)+"%_ &" : "")+
+				(this.canSupriseAttack ? Messages.get(Runestone.class, "surprise")+": _"+this.canSupriseAttack+"_ &" : "")+
+				(this.accSkill != 1f ? Messages.get(Runestone.class, "acc")+": _"+Math.round((this.accSkill-1f)*100)+"%_ &" : "");
+		ringEffect = ringEffect.substring(0, ringEffect.length()-1);
+		ringEffect = ringEffect.replaceAll("&", "\n");
+		s += ringEffect;
+		return super.desc() + s;
 	}
 
 	public static class PlaceHolder extends Runestone {

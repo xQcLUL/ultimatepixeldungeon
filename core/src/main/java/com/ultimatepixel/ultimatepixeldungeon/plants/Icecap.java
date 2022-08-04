@@ -63,6 +63,8 @@ public class Icecap extends Plant {
 			image = ItemSpriteSheet.SEED_ICECAP;
 
 			plantClass = Icecap.class;
+
+			id = 5;
 		}
 	}
 }

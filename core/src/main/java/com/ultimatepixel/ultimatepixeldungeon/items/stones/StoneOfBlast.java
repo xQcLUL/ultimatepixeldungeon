@@ -36,6 +36,9 @@ public class StoneOfBlast extends Runestone {
 
 		canSupriseAttack = true;
 		icon_surprise = true;
+
+		extraMaxDmgWeapon = 3;
+		extraMinDmgWeapon = -3;
 	}
 	
 	@Override

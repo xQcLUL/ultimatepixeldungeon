@@ -33,7 +33,6 @@ import com.ultimatepixel.ultimatepixeldungeon.items.Generator;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.Bag;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.Potion;
-import com.ultimatepixel.ultimatepixeldungeon.items.quest.CorpseDust;
 import com.ultimatepixel.ultimatepixeldungeon.items.rings.Ring;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.Scroll;
 import com.ultimatepixel.ultimatepixeldungeon.journal.Notes;

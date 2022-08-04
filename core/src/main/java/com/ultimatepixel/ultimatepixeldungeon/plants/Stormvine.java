@@ -56,6 +56,8 @@ public class Stormvine extends Plant {
 			image = ItemSpriteSheet.SEED_STORMVINE;
 
 			plantClass = Stormvine.class;
+
+			id = 10;
 		}
 	}
 }

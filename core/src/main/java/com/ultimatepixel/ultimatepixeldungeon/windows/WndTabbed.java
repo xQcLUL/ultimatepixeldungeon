@@ -27,6 +27,7 @@ package com.ultimatepixel.ultimatepixeldungeon.windows;
 import com.ultimatepixel.ultimatepixeldungeon.Assets;
 import com.ultimatepixel.ultimatepixeldungeon.Chrome;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.PixelScene;
+import com.ultimatepixel.ultimatepixeldungeon.ui.Button;
 import com.ultimatepixel.ultimatepixeldungeon.ui.RenderedTextBlock;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Window;
 import com.watabou.noosa.Game;
@@ -34,7 +35,6 @@ import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.PointerArea;
 import com.watabou.noosa.audio.Sample;
-import com.ultimatepixel.ultimatepixeldungeon.ui.Button;
 import com.watabou.utils.RectF;
 
 import java.util.ArrayList;

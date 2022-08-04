@@ -62,6 +62,8 @@ public class Starflower extends Plant {
 			image = ItemSpriteSheet.SEED_STARFLOWER;
 
 			plantClass = Starflower.class;
+
+			id = 9;
 		}
 		
 		@Override

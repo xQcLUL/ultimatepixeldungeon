@@ -24,6 +24,8 @@
 
 package com.ultimatepixel.ultimatepixeldungeon.actors.buffs;
 
+import static com.watabou.utils.Random.NormalFloat;
+
 import com.ultimatepixel.ultimatepixeldungeon.Badges;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.effects.Splash;
@@ -34,8 +36,6 @@ import com.ultimatepixel.ultimatepixeldungeon.ui.BuffIndicator;
 import com.ultimatepixel.ultimatepixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PointF;
-
-import static com.watabou.utils.Random.NormalFloat;
 
 public class Bleeding extends Buff {
 

@@ -84,6 +84,8 @@ public class Fadeleaf extends Plant {
 			image = ItemSpriteSheet.SEED_FADELEAF;
 
 			plantClass = Fadeleaf.class;
+
+			id = 3;
 		}
 	}
 }

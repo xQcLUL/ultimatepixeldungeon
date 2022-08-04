@@ -25,26 +25,169 @@
 package com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee;
 
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
+import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
+import com.ultimatepixel.ultimatepixeldungeon.actors.blobs.Freezing;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Burning;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Cripple;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Ooze;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Poison;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Roots;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Slow;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Terror;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Vertigo;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Weakness;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
+import com.ultimatepixel.ultimatepixeldungeon.effects.Speck;
+import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.Runestone;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.Weapon;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
+import com.ultimatepixel.ultimatepixeldungeon.plants.Blindweed;
+import com.ultimatepixel.ultimatepixeldungeon.plants.Plant;
+import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.particles.Emitter;
+import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class MeleeWeapon extends Weapon {
 	
 	public int tier;
 
+	private Plant.Seed seed1 = new Plant.Seed.PlaceHolder();
+	private Plant.Seed seed2 = new Plant.Seed.PlaceHolder();
+	private Plant.Seed seed3 = new Plant.Seed.PlaceHolder();
+
+	public void setSeed(Plant.Seed s, int slotActive) {
+		switch (slotActive){
+			case 0:
+				seed1 = s;
+				break;
+			case 1:
+				seed2 = s;
+				break;
+			case 2:
+				seed3 = s;
+				break;
+		}
+	}
+
+	public ArrayList<Plant.Seed> seedSlots() {
+		ArrayList<Plant.Seed> seedSlots = new ArrayList<>();
+		seedSlots.add( seed1 );
+		seedSlots.add( seed2 );
+		seedSlots.add( seed3 );
+		return seedSlots;
+	}
+
+	private Runestone stone1 = new Runestone.PlaceHolder();
+	private Runestone stone2 = new Runestone.PlaceHolder();
+	private Runestone stone3 = new Runestone.PlaceHolder();
+
+	public void setRunestone(Runestone s, int slotActive) {
+		switch (slotActive){
+			case 0:
+				stone1 = s;
+				break;
+			case 1:
+				stone2 = s;
+				break;
+			case 2:
+				stone3 = s;
+				break;
+		}
+	}
+
+	public ArrayList<Runestone> stoneSlots() {
+		ArrayList<Runestone> stoneSlots = new ArrayList<>();
+		stoneSlots.add( stone1 );
+		stoneSlots.add( stone2 );
+		stoneSlots.add( stone3 );
+		return stoneSlots;
+	}
+
+	@Override
+	public Emitter emitter() {
+		Emitter emitter = new Emitter();
+		if (!(stone1 instanceof Runestone.PlaceHolder)
+				|| !(stone2 instanceof Runestone.PlaceHolder)
+				|| !(stone3 instanceof Runestone.PlaceHolder)
+				|| !(seed1 instanceof Plant.Seed.PlaceHolder)
+				|| !(seed2 instanceof Plant.Seed.PlaceHolder)
+				|| !(seed3 instanceof Plant.Seed.PlaceHolder)) {
+			emitter.pos(ItemSpriteSheet.film.width(image)/2f + 2f, ItemSpriteSheet.film.height(image)/3f);
+			emitter.fillTarget = false;
+			emitter.pour(Speck.factory( Speck.RED_LIGHT ), 0.6f);
+		}
+		return emitter;
+	}
+
+	@Override
+	public int proc(Char attacker, Char defender, int damage) {
+		for(Plant.Seed seed : seedSlots()){
+			switch (seed.id){
+				case 1:
+					new Blindweed().activate( defender );
+					break;
+				case 2:
+					Buff.prolong( defender, Roots.class, Roots.DURATION );
+					break;
+				case 3:
+					ScrollOfTeleportation.teleportChar( defender );
+					break;
+				case 4:
+					Buff.affect( defender, Burning.class ).reignite( defender );
+					break;
+				case 5:
+					Freezing.freeze( defender.pos);
+					break;
+				case 6:
+					Buff.prolong( defender, Weakness.class, Weakness.DURATION );
+					break;
+				case 7:
+					Buff.affect( defender, Ooze.class).set( Ooze.DURATION );
+					break;
+				case 8:
+					Buff.affect( defender, Poison.class ).set( 5 + Math.round(2*Dungeon.scalingDepth() / 3f) );
+					break;
+				case 9:
+					Buff.affect( defender, Terror.class, Terror.DURATION ).object = attacker.id();
+					break;
+				case 10:
+					Buff.affect( defender, Vertigo.class, Vertigo.DURATION);
+					break;
+				case 11:
+					Buff.prolong( defender, Cripple.class, Cripple.DURATION );
+					break;
+				case 12:
+					Buff.prolong( defender, Slow.class, Slow.DURATION );
+					break;
+				default:
+					break;
+			}
+		}
+		return super.proc(attacker, defender, damage);
+	}
+
 	@Override
 	public int min(int lvl) {
 		return  tier +  //base
-				lvl;    //level scaling
+				lvl
+				+ stone1.extraMinDmgWeapon
+				+ stone2.extraMinDmgWeapon
+				+ stone3.extraMinDmgWeapon;    //level scaling
 	}
 
 	@Override
 	public int max(int lvl) {
 		return  5*(tier+1) +    //base
-				lvl*(tier+1);   //level scaling
+				lvl*(tier+1)
+				+ stone1.extraMaxDmgWeapon
+				+ stone2.extraMaxDmgWeapon
+				+ stone3.extraMaxDmgWeapon;   //level scaling
 	}
 
 	public int STRReq(int lvl){
@@ -109,8 +252,24 @@ public class MeleeWeapon extends Weapon {
 		} else if (!isIdentified() && cursedKnown){
 			info += "\n\n" + Messages.get(Weapon.class, "not_cursed");
 		}
+
+		if(hasStones()){
+			int max = stone1.extraMaxDmgWeapon+stone2.extraMaxDmgWeapon +stone3.extraMaxDmgWeapon;
+			info += "\n\n"+Messages.get(this, "stone_max_dmg")+": _"+max+"_";
+		}
+
+		if(hasStones()){
+			int min = stone1.extraMinDmgWeapon +stone2.extraMinDmgWeapon +stone3.extraMinDmgWeapon;
+			info += "\n"+Messages.get(this, "stone_min_dmg")+": _"+min+"_";
+		}
 		
 		return info;
+	}
+
+	public boolean hasStones(){
+		return !(stone1 instanceof Runestone.PlaceHolder) ||
+				!(stone2 instanceof Runestone.PlaceHolder) ||
+				!(stone3 instanceof Runestone.PlaceHolder);
 	}
 	
 	public String statsInfo(){
@@ -135,4 +294,36 @@ public class MeleeWeapon extends Weapon {
 		return price;
 	}
 
+	private static final String STONE1		    = "stone_1";
+	private static final String STONE2		    = "stone_2";
+	private static final String STONE3		    = "stone_3";
+	private static final String SEED1		    = "seed_1";
+	private static final String SEED2		    = "seed_2";
+	private static final String SEED3		    = "seed_3";
+
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put(STONE1, stone1.getClass());
+		bundle.put(STONE2, stone2.getClass());
+		bundle.put(STONE3, stone3.getClass());
+		bundle.put(SEED1, seed1.getClass());
+		bundle.put(SEED2, seed2.getClass());
+		bundle.put(SEED3, seed3.getClass());
+	}
+
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		try {
+			stone1 = (Runestone) bundle.getClass(STONE1).newInstance();
+			stone2 = (Runestone) bundle.getClass(STONE2).newInstance();
+			stone3 = (Runestone) bundle.getClass(STONE3).newInstance();
+			seed1 = (Plant.Seed) bundle.getClass(SEED1).newInstance();
+			seed2 = (Plant.Seed) bundle.getClass(SEED2).newInstance();
+			seed3 = (Plant.Seed) bundle.getClass(SEED3).newInstance();
+		} catch (Exception e) {
+			UltimatePixelDungeon.reportException(e);
+		}
+	}
 }

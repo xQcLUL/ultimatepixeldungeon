@@ -42,6 +42,9 @@ public class StoneOfBlink extends Runestone {
 		icon_speed = true;
 		accSkill = 1.2f;
 		icon_acc = true;
+
+		extraMaxDmgWeapon = -1;
+		extraMinDmgWeapon = 1;
 	}
 	
 	private static Ballistica throwPath;

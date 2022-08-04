@@ -38,15 +38,12 @@ import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.items.ItemStatusHandler;
 import com.ultimatepixel.ultimatepixeldungeon.items.KindofMisc;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.Runestone;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfAggression;
 import com.ultimatepixel.ultimatepixeldungeon.journal.Catalog;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSprite;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 import com.ultimatepixel.ultimatepixeldungeon.utils.GLog;
-import com.ultimatepixel.ultimatepixeldungeon.utils.Xml;
 import com.watabou.noosa.particles.Emitter;
-import com.watabou.noosa.particles.PixelParticle;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 

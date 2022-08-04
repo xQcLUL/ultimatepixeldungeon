@@ -49,6 +49,9 @@ public class StoneOfAugmentation extends InventoryStone {
 
 		drSkill = 1;
 		icon_dr = true;
+
+		extraMaxDmgWeapon = 2;
+		extraMinDmgWeapon = -2;
 	}
 
 	@Override

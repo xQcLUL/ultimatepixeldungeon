@@ -32,6 +32,7 @@ import com.ultimatepixel.ultimatepixeldungeon.actors.hero.HeroSubClass;
 import com.ultimatepixel.ultimatepixeldungeon.journal.Journal;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Archs;
+import com.ultimatepixel.ultimatepixeldungeon.ui.Button;
 import com.ultimatepixel.ultimatepixeldungeon.ui.ExitButton;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Icons;
 import com.ultimatepixel.ultimatepixeldungeon.ui.RenderedTextBlock;
@@ -41,7 +42,6 @@ import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
-import com.ultimatepixel.ultimatepixeldungeon.ui.Button;
 
 import java.util.ArrayList;
 

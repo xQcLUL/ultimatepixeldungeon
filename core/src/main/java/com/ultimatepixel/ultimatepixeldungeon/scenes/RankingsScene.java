@@ -34,6 +34,7 @@ import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSprite;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Archs;
+import com.ultimatepixel.ultimatepixeldungeon.ui.Button;
 import com.ultimatepixel.ultimatepixeldungeon.ui.ExitButton;
 import com.ultimatepixel.ultimatepixeldungeon.ui.IconButton;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Icons;
@@ -46,7 +47,6 @@ import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Music;
-import com.ultimatepixel.ultimatepixeldungeon.ui.Button;
 import com.watabou.utils.GameMath;
 
 public class RankingsScene extends PixelScene {

@@ -54,6 +54,9 @@ public class StoneOfShock extends Runestone {
 		icon_dmg = true;
 		accSkill = 1.1f;
 		icon_acc = true;
+
+		extraMaxDmgWeapon = 3;
+		extraMinDmgWeapon = -3;
 	}
 	
 	@Override

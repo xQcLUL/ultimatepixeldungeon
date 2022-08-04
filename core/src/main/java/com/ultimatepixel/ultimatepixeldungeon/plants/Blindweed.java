@@ -67,6 +67,8 @@ public class Blindweed extends Plant {
 	
 	public static class Seed extends Plant.Seed {
 		{
+			id = 1;
+
 			image = ItemSpriteSheet.SEED_BLINDWEED;
 
 			plantClass = Blindweed.class;

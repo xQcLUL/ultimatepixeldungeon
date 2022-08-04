@@ -68,6 +68,8 @@ public class Sungrass extends Plant {
 			plantClass = Sungrass.class;
 
 			bones = true;
+
+			id = 11;
 		}
 	}
 	

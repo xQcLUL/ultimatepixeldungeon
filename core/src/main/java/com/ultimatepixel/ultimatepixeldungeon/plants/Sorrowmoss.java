@@ -62,6 +62,8 @@ public class Sorrowmoss extends Plant {
 			image = ItemSpriteSheet.SEED_SORROWMOSS;
 
 			plantClass = Sorrowmoss.class;
+
+			id = 8;
 		}
 	}
 }

@@ -24,8 +24,6 @@
 
 package com.ultimatepixel.ultimatepixeldungeon.windows;
 
-import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
-import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.Statistics;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.PixelScene;

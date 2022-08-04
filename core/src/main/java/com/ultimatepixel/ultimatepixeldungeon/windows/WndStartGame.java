@@ -40,6 +40,7 @@ import com.ultimatepixel.ultimatepixeldungeon.scenes.PixelScene;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSprite;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 import com.ultimatepixel.ultimatepixeldungeon.ui.ActionIndicator;
+import com.ultimatepixel.ultimatepixeldungeon.ui.Button;
 import com.ultimatepixel.ultimatepixeldungeon.ui.IconButton;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Icons;
 import com.ultimatepixel.ultimatepixeldungeon.ui.RedButton;
@@ -48,7 +49,6 @@ import com.ultimatepixel.ultimatepixeldungeon.ui.Window;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
-import com.ultimatepixel.ultimatepixeldungeon.ui.Button;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.DeviceCompat;
 

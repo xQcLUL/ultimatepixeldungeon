@@ -26,8 +26,8 @@ package com.ultimatepixel.ultimatepixeldungeon.ui;
 
 import com.ultimatepixel.ultimatepixeldungeon.Assets;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
-import com.ultimatepixel.ultimatepixeldungeon.UPDAction;
 import com.ultimatepixel.ultimatepixeldungeon.Statistics;
+import com.ultimatepixel.ultimatepixeldungeon.UPDAction;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Actor;
 import com.ultimatepixel.ultimatepixeldungeon.effects.CircleArc;
 import com.ultimatepixel.ultimatepixeldungeon.effects.Speck;

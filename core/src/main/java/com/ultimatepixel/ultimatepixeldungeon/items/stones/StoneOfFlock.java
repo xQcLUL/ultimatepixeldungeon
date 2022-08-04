@@ -51,6 +51,9 @@ public class StoneOfFlock extends Runestone {
 		drSkill = 2;
 		icon_dr = true;
 		speedSkill = 0.9f;
+
+		extraMaxDmgWeapon = 1;
+		extraMinDmgWeapon = -1;
 	}
 	
 	@Override

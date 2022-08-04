@@ -26,8 +26,8 @@ package com.ultimatepixel.ultimatepixeldungeon.levels.traps;
 
 import com.ultimatepixel.ultimatepixeldungeon.Assets;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
-import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.Statistics;
+import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Actor;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;

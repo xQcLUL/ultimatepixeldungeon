@@ -25,16 +25,13 @@
 package com.ultimatepixel.ultimatepixeldungeon.windows;
 
 import com.ultimatepixel.ultimatepixeldungeon.Assets;
-import com.ultimatepixel.ultimatepixeldungeon.Chrome;
 import com.ultimatepixel.ultimatepixeldungeon.UPDSettings;
 import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Languages;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.GameScene;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.PixelScene;
-import com.ultimatepixel.ultimatepixeldungeon.sprites.CharSprite;
 import com.ultimatepixel.ultimatepixeldungeon.ui.CheckBox;
-import com.ultimatepixel.ultimatepixeldungeon.ui.GameLog;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Icons;
 import com.ultimatepixel.ultimatepixeldungeon.ui.OptionSlider;
 import com.ultimatepixel.ultimatepixeldungeon.ui.RedButton;
@@ -50,10 +47,6 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.Random;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
 
 public class WndSettings extends WndTabbed {
 

@@ -59,6 +59,9 @@ public class StoneOfIntuition extends InventoryStone {
 		evasionSkill = 1.6f;
 		icon_evasion = true;
 		drSkill = -1;
+
+		extraMaxDmgWeapon = 2;
+		extraMinDmgWeapon = -2;
 	}
 
 	@Override

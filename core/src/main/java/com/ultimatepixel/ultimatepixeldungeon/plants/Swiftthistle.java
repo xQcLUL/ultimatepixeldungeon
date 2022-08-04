@@ -63,6 +63,8 @@ public class Swiftthistle extends Plant {
 			image = ItemSpriteSheet.SEED_SWIFTTHISTLE;
 			
 			plantClass = Swiftthistle.class;
+
+			id = 12;
 		}
 	}
 	

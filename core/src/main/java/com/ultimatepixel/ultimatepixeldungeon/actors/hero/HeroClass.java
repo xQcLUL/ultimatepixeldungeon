@@ -31,17 +31,17 @@ import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.QuickSlot;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.huntress.NaturesPower;
-import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.huntress.SpectralBlades;
-import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.mage.WildMagic;
-import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.mage.WarpBeacon;
+import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.mage.ElementalBlast;
+import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.mage.WarpBeacon;
+import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.rogue.DeathMark;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.rogue.SmokeBomb;
+import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.warrior.Shockwave;
-import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.ultimatepixel.ultimatepixeldungeon.items.BrokenSeal;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.items.Waterskin;
@@ -53,21 +53,12 @@ import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfHealing;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfInvisibility;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfMindVision;
-import com.ultimatepixel.ultimatepixeldungeon.items.rings.RingOfAccuracy;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfRage;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfUpgrade;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfAggression;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfAugmentation;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfBlast;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfBlink;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfClairvoyance;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfDeepSleep;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfDisarming;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfEnchantment;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfFear;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfFlock;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfIntuition;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfShock;
@@ -80,6 +71,11 @@ import com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee.WornShortsword;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
+import com.ultimatepixel.ultimatepixeldungeon.plants.Blindweed;
+import com.ultimatepixel.ultimatepixeldungeon.plants.Firebloom;
+import com.ultimatepixel.ultimatepixeldungeon.plants.Icecap;
+import com.ultimatepixel.ultimatepixeldungeon.plants.Stormvine;
+import com.ultimatepixel.ultimatepixeldungeon.plants.Swiftthistle;
 import com.watabou.utils.DeviceCompat;
 
 public enum HeroClass {
@@ -114,20 +110,16 @@ public enum HeroClass {
 
 		new ScrollOfIdentify().identify();
 
-		//TODO: remove this
-		new RingOfAccuracy().identify().collect();
-		new StoneOfAggression().identify().collect();
-		new StoneOfAugmentation().identify().collect();
-		new StoneOfBlast().identify().collect();
-		new StoneOfBlink().identify().collect();
-		new StoneOfClairvoyance().identify().collect();
-		new StoneOfDeepSleep().identify().collect();
-		new StoneOfDisarming().identify().collect();
-		new StoneOfEnchantment().identify().collect();
-		new StoneOfFear().identify().collect();
-		new StoneOfFlock().identify().collect();
-		new StoneOfIntuition().identify().collect();
+		//TODO: remove
+		new Blindweed.Seed().collect();
+		new Firebloom.Seed().collect();
+		new Swiftthistle.Seed().collect();
+		new Icecap.Seed().collect();
+		new Stormvine.Seed().collect();
 		new StoneOfShock().identify().collect();
+		new StoneOfIntuition().identify().collect();
+		new StoneOfFlock().identify().collect();
+		new StoneOfDeepSleep().identify().collect();
 
 		switch (this) {
 			case WARRIOR:

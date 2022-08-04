@@ -68,6 +68,8 @@ public class Rotberry extends Plant {
 			plantClass = Rotberry.class;
 
 			unique = true;
+
+			id = 7;
 		}
 		
 		@Override

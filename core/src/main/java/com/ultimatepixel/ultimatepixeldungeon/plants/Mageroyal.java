@@ -62,6 +62,8 @@ public class Mageroyal extends Plant {
 			image = ItemSpriteSheet.SEED_MAGEROYAL;
 
 			plantClass = Mageroyal.class;
+
+			id = 6;
 		}
 	}
 }

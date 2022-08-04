@@ -129,6 +129,8 @@ public abstract class Plant implements Bundlable {
 	
 	public static class Seed extends Item {
 
+		public int id = -1;
+
 		public static final String AC_PLANT	= "PLANT";
 		
 		private static final float TIME_TO_PLANT = 1f;

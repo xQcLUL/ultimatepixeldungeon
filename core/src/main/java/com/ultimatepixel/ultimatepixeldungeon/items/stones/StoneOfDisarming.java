@@ -56,6 +56,9 @@ public class StoneOfDisarming extends Runestone {
 		speedSkill = 1.3f;
 		icon_speed = true;
 		dmgSkill = -1;
+
+		extraMaxDmgWeapon = -1;
+		extraMinDmgWeapon = 1;
 	}
 
 	@Override

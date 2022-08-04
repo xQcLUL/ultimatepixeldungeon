@@ -47,6 +47,9 @@ public class StoneOfClairvoyance extends Runestone {
 		icon_evasion = true;
 		speedSkill = 1.1f;
 		icon_speed = true;
+
+		extraMaxDmgWeapon = -2;
+		extraMinDmgWeapon = 2;
 	}
 	
 	@Override

@@ -68,6 +68,8 @@ public class Earthroot extends Plant {
 			plantClass = Earthroot.class;
 
 			bones = true;
+
+			id = 2;
 		}
 	}
 	

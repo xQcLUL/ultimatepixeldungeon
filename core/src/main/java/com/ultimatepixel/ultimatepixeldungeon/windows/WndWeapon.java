@@ -26,25 +26,24 @@
 
 package com.ultimatepixel.ultimatepixeldungeon.windows;
 
-import com.ultimatepixel.ultimatepixeldungeon.Assets;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.Bag;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.VelvetPouch;
 import com.ultimatepixel.ultimatepixeldungeon.items.rings.Ring;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.Runestone;
+import com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
+import com.ultimatepixel.ultimatepixeldungeon.plants.Plant;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.GameScene;
-import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 import com.ultimatepixel.ultimatepixeldungeon.ui.InventoryPane;
 import com.ultimatepixel.ultimatepixeldungeon.ui.InventorySlot;
 import com.ultimatepixel.ultimatepixeldungeon.ui.RedButton;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Window;
-import com.watabou.noosa.Image;
 
 import java.util.ArrayList;
 
-public class WndRing extends WndInfoItem{
+public class WndWeapon extends WndInfoItem{
 
     private static final float BUTTON_HEIGHT	= 16;
 
@@ -54,20 +53,21 @@ public class WndRing extends WndInfoItem{
     private InventorySlot inv2;
     private InventorySlot inv3;
 
-    private final WndRing INSTANCE;
+    private InventorySlot inv4;
+    private InventorySlot inv5;
+    private InventorySlot inv6;
 
     private int activeSlot = 0;
 
-    private final float yHeight;
-    private final Window ownerWindow;
-    private final Ring itemDisplayed;
+    private final MeleeWeapon itemDisplayed;
 
-    public WndRing(final Window owner, final Item item) {
+    private final WndWeapon INSTANCE;
+
+    public WndWeapon(final Window owner, final Item item) {
         super(item);
 
+        itemDisplayed = (MeleeWeapon) item;
         INSTANCE = this;
-        ownerWindow = owner;
-        itemDisplayed = (Ring) item;
 
         float y = height;
 
@@ -75,6 +75,50 @@ public class WndRing extends WndInfoItem{
         int slotHeight = 20;
 
         WndBag.ItemSelector itemSelector = new WndBag.ItemSelector(){
+
+            @Override
+            public String textPrompt() {
+                return Messages.get(WndWeapon.class, "select_seed");
+            }
+
+            @Override
+            public Class<? extends Bag> preferredBag() {
+                return VelvetPouch.class;
+            }
+
+            @Override
+            public boolean itemSelectable(Item item) {
+                return item instanceof Plant.Seed;
+            }
+
+            @Override
+            public void onSelect(Item i) {
+                if(i instanceof Plant.Seed){
+                    if(!(((MeleeWeapon) item).seedSlots().get(activeSlot) instanceof Plant.Seed.PlaceHolder)){
+                        ((MeleeWeapon) item).seedSlots().get(activeSlot).collect();
+                    }
+                    Plant.Seed seed = (Plant.Seed) i.detach(Dungeon.hero.belongings.backpack);
+                    ((MeleeWeapon) item).setSeed(seed, activeSlot);
+                    ((MeleeWeapon) item).seedSlots().set(activeSlot, seed);
+                    switch (activeSlot){
+                        case 0:
+                            inv1.getSprite().view(seed);
+                            INSTANCE.updateWindow(owner, true);
+                            break;
+                        case 1:
+                            inv2.getSprite().view(seed);
+                            INSTANCE.updateWindow(owner, true);
+                            break;
+                        case 2:
+                            inv3.getSprite().view(seed);
+                            INSTANCE.updateWindow(owner, true);
+                            break;
+                    }
+                }
+            }
+        };
+
+        WndBag.ItemSelector itemSelector2 = new WndBag.ItemSelector(){
 
             @Override
             public String textPrompt() {
@@ -94,24 +138,24 @@ public class WndRing extends WndInfoItem{
             @Override
             public void onSelect(Item i) {
                 if(i instanceof Runestone){
-                    if(!(((Ring) item).stoneSlots().get(activeSlot) instanceof Runestone.PlaceHolder)){
-                        ((Ring) item).stoneSlots().get(activeSlot).collect();
+                    if(!(((MeleeWeapon) item).stoneSlots().get(activeSlot) instanceof Runestone.PlaceHolder)){
+                        ((MeleeWeapon) item).stoneSlots().get(activeSlot).collect();
                     }
                     Runestone st = (Runestone) i.detach(Dungeon.hero.belongings.backpack);
-                    ((Ring) item).setRunestone(st, activeSlot);
-                    ((Ring) item).stoneSlots().set(activeSlot, st);
+                    ((MeleeWeapon) item).setRunestone(st, activeSlot);
+                    ((MeleeWeapon) item).stoneSlots().set(activeSlot, st);
                     switch (activeSlot){
                         case 0:
-                            inv1.getSprite().view(st);
-                            INSTANCE.layoutIcons(yHeight, true);
+                            inv4.getSprite().view(st);
+                            INSTANCE.updateWindow(owner, true);
                             break;
                         case 1:
-                            inv2.getSprite().view(st);
-                            INSTANCE.layoutIcons(yHeight, true);
+                            inv5.getSprite().view(st);
+                            INSTANCE.updateWindow(owner, true);
                             break;
                         case 2:
-                            inv3.getSprite().view(st);
-                            INSTANCE.layoutIcons(yHeight, true);
+                            inv6.getSprite().view(st);
+                            INSTANCE.updateWindow(owner, true);
                             break;
                     }
                 }
@@ -120,7 +164,7 @@ public class WndRing extends WndInfoItem{
 
         if (Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(item) && item != null) {
             y += GAP;
-           inv1 = new InventorySlot(((Ring) item).stoneSlots().get(0)){
+           inv1 = new InventorySlot(((MeleeWeapon) item).seedSlots().get(0)){
                boolean longClicked = false;
 
                 @Override
@@ -136,19 +180,19 @@ public class WndRing extends WndInfoItem{
                @Override
                protected boolean onLongClick() {
                    activeSlot = 0;
-                   if(itemDisplayed.stoneSlots().get(activeSlot) instanceof Runestone.PlaceHolder){
+                   if(itemDisplayed.seedSlots().get(activeSlot) instanceof Plant.Seed.PlaceHolder){
                        return super.onLongClick();
                    }
                    longClicked = true;
-                   itemDisplayed.stoneSlots().get(activeSlot).collect();
-                   Runestone runestone = new Runestone.PlaceHolder();
-                   itemDisplayed.setRunestone(runestone, activeSlot);
-                   inv1.getSprite().view(runestone);
-                   INSTANCE.layoutIcons(yHeight, true);
+                   itemDisplayed.seedSlots().get(activeSlot).collect();
+                   Plant.Seed seed = new Plant.Seed.PlaceHolder();
+                   itemDisplayed.setSeed(seed, activeSlot);
+                   inv1.getSprite().view(seed);
+                   INSTANCE.updateWindow(owner, true);
                    return super.onLongClick();
                }
            };
-           inv2 = new InventorySlot(((Ring) item).stoneSlots().get(1)){
+           inv2 = new InventorySlot(((MeleeWeapon) item).seedSlots().get(1)){
 
                boolean longClicked = false;
 
@@ -165,19 +209,19 @@ public class WndRing extends WndInfoItem{
                @Override
                protected boolean onLongClick() {
                     activeSlot = 1;
-                    if(itemDisplayed.stoneSlots().get(activeSlot) instanceof Runestone.PlaceHolder){
+                    if(itemDisplayed.seedSlots().get(activeSlot) instanceof Plant.Seed.PlaceHolder){
                         return super.onLongClick();
                     }
                     longClicked = true;
-                    itemDisplayed.stoneSlots().get(activeSlot).collect();
-                    Runestone runestone = new Runestone.PlaceHolder();
-                    itemDisplayed.setRunestone(runestone, activeSlot);
-                    inv2.getSprite().view(runestone);
-                    INSTANCE.layoutIcons(yHeight, true);
+                    itemDisplayed.seedSlots().get(activeSlot).collect();
+                    Plant.Seed seed = new Plant.Seed.PlaceHolder();
+                    itemDisplayed.setSeed(seed, activeSlot);
+                    inv2.getSprite().view(seed);
+                    INSTANCE.updateWindow(owner, true);
                     return super.onLongClick();
                }
            };
-            inv3 = new InventorySlot(((Ring) item).stoneSlots().get(2)){
+           inv3 = new InventorySlot(((MeleeWeapon) item).seedSlots().get(2)){
                 boolean longClicked = false;
 
                 @Override
@@ -193,6 +237,34 @@ public class WndRing extends WndInfoItem{
                 @Override
                 protected boolean onLongClick() {
                     activeSlot = 2;
+                    if(itemDisplayed.seedSlots().get(activeSlot) instanceof Plant.Seed.PlaceHolder){
+                        return super.onLongClick();
+                    }
+                    longClicked = true;
+                    itemDisplayed.seedSlots().get(activeSlot).collect();
+                    Plant.Seed seed = new Plant.Seed.PlaceHolder();
+                    itemDisplayed.setSeed(seed, activeSlot);
+                    inv3.getSprite().view(seed);
+                    INSTANCE.updateWindow(owner, true);
+                    return super.onLongClick();
+                }
+            };
+            inv4 = new InventorySlot(((MeleeWeapon) item).stoneSlots().get(0)){
+                boolean longClicked = false;
+
+                @Override
+                protected void onClick() {
+                    super.onClick();
+                    activeSlot = 0;
+                    if(!longClicked){
+                        GameScene.selectItem(itemSelector2);
+                    }
+                    longClicked = false;
+                }
+
+                @Override
+                protected boolean onLongClick() {
+                    activeSlot = 0;
                     if(itemDisplayed.stoneSlots().get(activeSlot) instanceof Runestone.PlaceHolder){
                         return super.onLongClick();
                     }
@@ -200,8 +272,65 @@ public class WndRing extends WndInfoItem{
                     itemDisplayed.stoneSlots().get(activeSlot).collect();
                     Runestone runestone = new Runestone.PlaceHolder();
                     itemDisplayed.setRunestone(runestone, activeSlot);
-                    inv3.getSprite().view(runestone);
-                    INSTANCE.layoutIcons(yHeight, true);
+                    inv4.getSprite().view(runestone);
+                    INSTANCE.updateWindow(owner, true);
+                    return super.onLongClick();
+                }
+            };
+            inv5 = new InventorySlot(((MeleeWeapon) item).stoneSlots().get(1)){
+
+                boolean longClicked = false;
+
+                @Override
+                protected void onClick() {
+                    super.onClick();
+                    activeSlot = 1;
+                    if(!longClicked){
+                        GameScene.selectItem(itemSelector2);
+                    }
+                    longClicked = false;
+                }
+
+                @Override
+                protected boolean onLongClick() {
+                    activeSlot = 1;
+                    if(itemDisplayed.stoneSlots().get(activeSlot) instanceof Runestone.PlaceHolder){
+                        return super.onLongClick();
+                    }
+                    longClicked = true;
+                    itemDisplayed.stoneSlots().get(activeSlot).collect();
+                    Runestone runestone = new Runestone.PlaceHolder();
+                    itemDisplayed.setRunestone(runestone, activeSlot);
+                    inv5.getSprite().view(runestone);
+                    INSTANCE.updateWindow(owner, true);
+                    return super.onLongClick();
+                }
+            };
+            inv6 = new InventorySlot(((MeleeWeapon) item).stoneSlots().get(2)){
+                boolean longClicked = false;
+
+                @Override
+                protected void onClick() {
+                    super.onClick();
+                    activeSlot = 2;
+                    if(!longClicked){
+                        GameScene.selectItem(itemSelector2);
+                    }
+                    longClicked = false;
+                }
+
+                @Override
+                protected boolean onLongClick() {
+                    activeSlot = 2;
+                    if(itemDisplayed.stoneSlots().get(activeSlot) instanceof Runestone.PlaceHolder){
+                        return super.onLongClick();
+                    }
+                    longClicked = true;
+                    itemDisplayed.stoneSlots().get(activeSlot).collect();
+                    Runestone runestone = new Runestone.PlaceHolder();
+                    itemDisplayed.setRunestone(runestone, activeSlot);
+                    inv6.getSprite().view(runestone);
+                    INSTANCE.updateWindow(owner, true);
                     return super.onLongClick();
                 }
             };
@@ -237,65 +366,24 @@ public class WndRing extends WndInfoItem{
             add(inv1);
             inv2.setRect(inv1.width()+GAP, y, slotWidth, slotHeight);
             add(inv2);
-            inv3.setRect(inv2.width() + GAP + inv1.width() + GAP, y, slotWidth, slotHeight);
+            inv3.setRect(2*(inv2.width() + GAP), y, slotWidth, slotHeight);
             add(inv3);
+
+            inv4.setRect(width-(inv1.width()+GAP), y, slotWidth, slotHeight);
+            add(inv4);
+            inv5.setRect(width-(2*(inv1.width()+GAP)), y, slotWidth, slotHeight);
+            add(inv5);
+            inv6.setRect(width -(3*(inv1.width()+GAP)), y, slotWidth, slotHeight);
+            add(inv6);
         }
-        yHeight = y;
-        layoutIcons(yHeight, false);
+        updateWindow(owner, false);
         resize( width, (int)(y+GAP+slotHeight));
     }
 
-    private void layoutIcons(float y, boolean update){
-        ArrayList<Image> icons = new ArrayList<>();
-
-        //TODO: could make this a loop
-        if(((Runestone) inv1.item()).icon_dmg || ((Runestone) inv2.item()).icon_dmg || ((Runestone) inv3.item()).icon_dmg){
-            Image im_dmg = new Image(Assets.Sprites.ITEM_ICONS);
-            im_dmg.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_DAMAGE));
-            icons.add(im_dmg);
-        }
-        if(((Runestone) inv1.item()).icon_dr || ((Runestone) inv2.item()).icon_dr || ((Runestone) inv3.item()).icon_dr){
-            Image im_dr = new Image(Assets.Sprites.ITEM_ICONS);
-            im_dr.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_DMGRED));
-            icons.add(im_dr);
-        }
-        if(((Runestone) inv1.item()).icon_evasion || ((Runestone) inv2.item()).icon_evasion || ((Runestone) inv3.item()).icon_evasion){
-            Image im_evasion = new Image(Assets.Sprites.ITEM_ICONS);
-            im_evasion.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_EVASION));
-            icons.add(im_evasion);
-        }
-        if(((Runestone) inv1.item()).icon_acc || ((Runestone) inv2.item()).icon_acc || ((Runestone) inv3.item()).icon_acc){
-            Image im_acc = new Image(Assets.Sprites.ITEM_ICONS);
-            im_acc.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_ACCURACY));
-            icons.add(im_acc);
-        }
-        if(((Runestone) inv1.item()).icon_surprise || ((Runestone) inv2.item()).icon_surprise || ((Runestone) inv3.item()).icon_surprise){
-            Image im_surprise = new Image(Assets.Sprites.ITEM_ICONS);
-            im_surprise.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_SURPRISE));
-            icons.add(im_surprise);
-        }
-        if(((Runestone) inv1.item()).icon_speed || ((Runestone) inv2.item()).icon_speed || ((Runestone) inv3.item()).icon_speed){
-            Image im_speed = new Image(Assets.Sprites.ITEM_ICONS);
-            im_speed.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_SPEED));
-            icons.add(im_speed);
-        }
-
-        int i = 0;
-        for(Image icon : icons){
-            i++;
-            icon.scale.set(1.5f);
-            if(i > 3){
-                icon.x = width - ((i-3)*12);
-                icon.y = y+icon.height()+2;
-            } else {
-                icon.x = width - (i*12);
-                icon.y = y;
-            }
-            add(icon);
-        }
+    public void updateWindow(Window owner, boolean update){
         if(update){
             INSTANCE.remove();
-            GameScene.show(new WndRing(ownerWindow, itemDisplayed));
+            GameScene.show(new WndWeapon(owner, itemDisplayed));
         }
     }
 

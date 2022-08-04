@@ -49,6 +49,9 @@ public class StoneOfAggression extends Runestone {
 		dmgSkill = 1;
 		icon_dmg = true;
 		accSkill = 0.9f;
+
+		extraMaxDmgWeapon = 3;
+		extraMinDmgWeapon = -3;
 	}
 	
 	@Override
