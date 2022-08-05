@@ -32,6 +32,7 @@ import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.LostInventory;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Belongings;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
+import com.ultimatepixel.ultimatepixeldungeon.items.armor.Armor;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.Bag;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.MagicalHolster;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.PotionBandolier;
@@ -44,6 +45,7 @@ import com.ultimatepixel.ultimatepixeldungeon.scenes.GameScene;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.PixelScene;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.CharSprite;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
+import com.ultimatepixel.ultimatepixeldungeon.windows.WndArmor;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndBag;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndRing;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndUseItem;
@@ -505,6 +507,8 @@ public class InventoryPane extends Component {
 					GameScene.show(new WndRing( null, item ));
 				} else if(item instanceof MeleeWeapon && item.isIdentified()){
 					GameScene.show(new WndWeapon(null, item));
+				} else if(item instanceof Armor && item.isIdentified()){
+					GameScene.show(new WndArmor(null, item));
 				} else {
 					GameScene.show(new WndUseItem( null, item ));
 				}

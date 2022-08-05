@@ -29,6 +29,7 @@ import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.blobs.Blob;
 import com.ultimatepixel.ultimatepixeldungeon.actors.blobs.Fire;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Burning;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.FireImbue;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.HeroSubClass;
@@ -63,8 +64,11 @@ public class Firebloom extends Plant {
 			image = ItemSpriteSheet.SEED_FIREBLOOM;
 
 			plantClass = Firebloom.class;
+		}
 
-			id = 4;
+		@Override
+		public void proc(Char attacker, Char defender) {
+			Buff.affect( defender, Burning.class ).reignite( defender );
 		}
 	}
 }

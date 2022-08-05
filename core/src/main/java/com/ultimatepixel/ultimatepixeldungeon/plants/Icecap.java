@@ -63,8 +63,11 @@ public class Icecap extends Plant {
 			image = ItemSpriteSheet.SEED_ICECAP;
 
 			plantClass = Icecap.class;
+		}
 
-			id = 5;
+		@Override
+		public void proc(Char attacker, Char defender) {
+			Freezing.freeze( defender.pos);
 		}
 	}
 }

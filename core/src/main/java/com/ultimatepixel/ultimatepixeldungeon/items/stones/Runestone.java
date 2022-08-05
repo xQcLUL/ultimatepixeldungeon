@@ -30,8 +30,6 @@ import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 
-import java.util.ArrayList;
-
 public abstract class Runestone extends Item {
 
 	public float evasionSkill = 1f;
@@ -47,6 +45,9 @@ public abstract class Runestone extends Item {
 	public boolean icon_speed = false;
 	public boolean icon_surprise = false;
 	public boolean icon_acc = false;
+
+	public int armorDRMax = 0;
+	public int armorDRMin = 0;
 
 	public int extraMaxDmgWeapon = 0;
 	public int extraMinDmgWeapon = 0;
@@ -101,6 +102,10 @@ public abstract class Runestone extends Item {
 		String weaponDmg = Messages.get(Runestone.class, "extra_max_damage")+": _"+this.extraMaxDmgWeapon+"_ \n"+
 				Messages.get(Runestone.class, "extra_min_damage")+": _"+this.extraMinDmgWeapon+"_ ";
 		s += weaponDmg;
+		s += "\n\n";
+		String armorD = Messages.get(Runestone.class, "extra_max_armor")+": _"+this.armorDRMax+"_ \n"+
+				Messages.get(Runestone.class, "extra_min_armor")+": _"+this.armorDRMin+"_ ";
+		s += armorD;
 		s += "\n\n";
 		String ringEffect = (this.evasionSkill != 1f ? Messages.get(Runestone.class, "evasion")+": _"+Math.round((this.evasionSkill-1f)*100)+"%_ &" : "")+
 				(this.drSkill != 0 ? Messages.get(Runestone.class, "dr")+": _"+this.drSkill+"_ &" : "")+

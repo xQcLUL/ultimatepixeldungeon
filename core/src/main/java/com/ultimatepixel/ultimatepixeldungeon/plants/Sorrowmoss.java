@@ -62,8 +62,11 @@ public class Sorrowmoss extends Plant {
 			image = ItemSpriteSheet.SEED_SORROWMOSS;
 
 			plantClass = Sorrowmoss.class;
+		}
 
-			id = 8;
+		@Override
+		public void proc(Char attacker, Char defender) {
+			Buff.affect( defender, Poison.class ).set( 5 + Math.round(2*Dungeon.scalingDepth() / 3f) );
 		}
 	}
 }

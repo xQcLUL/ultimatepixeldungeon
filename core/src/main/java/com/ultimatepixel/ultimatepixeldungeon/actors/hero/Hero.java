@@ -75,6 +75,7 @@ import com.ultimatepixel.ultimatepixeldungeon.items.Heap;
 import com.ultimatepixel.ultimatepixeldungeon.items.Heap.Type;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.items.KindOfWeapon;
+import com.ultimatepixel.ultimatepixeldungeon.items.KindofMisc;
 import com.ultimatepixel.ultimatepixeldungeon.items.armor.Armor;
 import com.ultimatepixel.ultimatepixeldungeon.items.armor.ClassArmor;
 import com.ultimatepixel.ultimatepixeldungeon.items.armor.glyphs.AntiMagic;
@@ -1213,6 +1214,16 @@ public class Hero extends Char {
 		KindOfWeapon wep = belongings.weapon();
 
 		if (wep != null) damage = wep.proc( this, enemy, damage );
+
+		Ring r = belongings.ring();
+		KindofMisc ri = belongings.misc();
+
+		if(r != null){
+			damage = r.proc(enemy, damage);
+		}
+		if(ri instanceof Ring){
+			damage = ((Ring)ri).proc(enemy, damage);
+		}
 
 		if (buff(Talent.SpiritBladesTracker.class) != null
 				&& Random.Int(10) < 3*pointsInTalent(Talent.SPIRIT_BLADES)){

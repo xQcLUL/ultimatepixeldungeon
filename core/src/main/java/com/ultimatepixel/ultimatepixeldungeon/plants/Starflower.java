@@ -28,6 +28,7 @@ import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Bless;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Recharging;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Terror;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.HeroSubClass;
 import com.ultimatepixel.ultimatepixeldungeon.effects.Flare;
@@ -62,10 +63,13 @@ public class Starflower extends Plant {
 			image = ItemSpriteSheet.SEED_STARFLOWER;
 
 			plantClass = Starflower.class;
-
-			id = 9;
 		}
-		
+
+		@Override
+		public void proc(Char attacker, Char defender) {
+			Buff.affect( defender, Terror.class, Terror.DURATION ).object = attacker.id();
+		}
+
 		@Override
 		public int value() {
 			return 30 * quantity;

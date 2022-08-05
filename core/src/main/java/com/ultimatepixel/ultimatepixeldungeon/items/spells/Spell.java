@@ -29,6 +29,7 @@ import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.MagicImmune;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
+import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 import com.ultimatepixel.ultimatepixeldungeon.utils.GLog;
 
 import java.util.ArrayList;
@@ -77,5 +78,27 @@ public abstract class Spell extends Item {
 	}
 	
 	protected abstract void onCast(Hero hero );
+
+	public static class PlaceHolder extends Spell{
+
+		{
+			image = ItemSpriteSheet.SPELL_HOLDER;
+		}
+
+		@Override
+		protected void onCast(Hero hero) {
+
+		}
+
+		@Override
+		public boolean isSimilar(Item item) {
+			return item instanceof Spell;
+		}
+
+		@Override
+		public String info() {
+			return "";
+		}
+	}
 	
 }

@@ -29,6 +29,7 @@ import com.ultimatepixel.ultimatepixeldungeon.UPDAction;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Belongings;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
+import com.ultimatepixel.ultimatepixeldungeon.items.armor.Armor;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.Bag;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.MagicalHolster;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.PotionBandolier;
@@ -293,6 +294,8 @@ public class WndBag extends WndTabbed {
 						Game.scene().addToFront(new WndRing(WndBag.this, item));
 					} else if(item instanceof MeleeWeapon && item.isIdentified()){
 						GameScene.show(new WndWeapon(WndBag.this, item));
+					} else if(item instanceof Armor && item.isIdentified()){
+						GameScene.show(new WndArmor(WndBag.this, item));
 					} else {
 						Game.scene().addToFront(new WndUseItem(WndBag.this, item));
 					}

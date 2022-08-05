@@ -27,24 +27,11 @@ package com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
-import com.ultimatepixel.ultimatepixeldungeon.actors.blobs.Freezing;
-import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
-import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Burning;
-import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Cripple;
-import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Ooze;
-import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Poison;
-import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Roots;
-import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Slow;
-import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Terror;
-import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Vertigo;
-import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Weakness;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.effects.Speck;
-import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.Runestone;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.Weapon;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
-import com.ultimatepixel.ultimatepixeldungeon.plants.Blindweed;
 import com.ultimatepixel.ultimatepixeldungeon.plants.Plant;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.particles.Emitter;
@@ -128,66 +115,37 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public int proc(Char attacker, Char defender, int damage) {
 		for(Plant.Seed seed : seedSlots()){
-			switch (seed.id){
-				case 1:
-					new Blindweed().activate( defender );
-					break;
-				case 2:
-					Buff.prolong( defender, Roots.class, Roots.DURATION );
-					break;
-				case 3:
-					ScrollOfTeleportation.teleportChar( defender );
-					break;
-				case 4:
-					Buff.affect( defender, Burning.class ).reignite( defender );
-					break;
-				case 5:
-					Freezing.freeze( defender.pos);
-					break;
-				case 6:
-					Buff.prolong( defender, Weakness.class, Weakness.DURATION );
-					break;
-				case 7:
-					Buff.affect( defender, Ooze.class).set( Ooze.DURATION );
-					break;
-				case 8:
-					Buff.affect( defender, Poison.class ).set( 5 + Math.round(2*Dungeon.scalingDepth() / 3f) );
-					break;
-				case 9:
-					Buff.affect( defender, Terror.class, Terror.DURATION ).object = attacker.id();
-					break;
-				case 10:
-					Buff.affect( defender, Vertigo.class, Vertigo.DURATION);
-					break;
-				case 11:
-					Buff.prolong( defender, Cripple.class, Cripple.DURATION );
-					break;
-				case 12:
-					Buff.prolong( defender, Slow.class, Slow.DURATION );
-					break;
-				default:
-					break;
-			}
+			seed.proc(attacker, defender);
 		}
 		return super.proc(attacker, defender, damage);
 	}
 
 	@Override
 	public int min(int lvl) {
-		return  tier +  //base
+		return tier +
 				lvl
-				+ stone1.extraMinDmgWeapon
+				+ stoneMin();
+	}
+
+	public int stoneMin(){
+		int m = stone1.extraMinDmgWeapon
 				+ stone2.extraMinDmgWeapon
-				+ stone3.extraMinDmgWeapon;    //level scaling
+				+ stone3.extraMinDmgWeapon;
+		return Math.max(m, 0);
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  5*(tier+1) +    //base
+		return 5*(tier+1) +
 				lvl*(tier+1)
-				+ stone1.extraMaxDmgWeapon
+				+ stoneMax();
+	}
+
+	public int stoneMax(){
+		int m = stone1.extraMaxDmgWeapon
 				+ stone2.extraMaxDmgWeapon
-				+ stone3.extraMaxDmgWeapon;   //level scaling
+				+ stone3.extraMaxDmgWeapon;
+		return Math.max(m, 0);
 	}
 
 	public int STRReq(int lvl){

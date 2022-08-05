@@ -26,21 +26,20 @@
 
 package com.ultimatepixel.ultimatepixeldungeon.windows;
 
-import com.ultimatepixel.ultimatepixeldungeon.Assets;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.Bag;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.VelvetPouch;
 import com.ultimatepixel.ultimatepixeldungeon.items.rings.Ring;
+import com.ultimatepixel.ultimatepixeldungeon.items.spells.Spell;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.Runestone;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.GameScene;
-import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 import com.ultimatepixel.ultimatepixeldungeon.ui.InventoryPane;
 import com.ultimatepixel.ultimatepixeldungeon.ui.InventorySlot;
 import com.ultimatepixel.ultimatepixeldungeon.ui.RedButton;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Window;
-import com.watabou.noosa.Image;
+import com.ultimatepixel.ultimatepixeldungeon.utils.GLog;
 
 import java.util.ArrayList;
 
@@ -54,19 +53,20 @@ public class WndRing extends WndInfoItem{
     private InventorySlot inv2;
     private InventorySlot inv3;
 
+    private InventorySlot inv4;
+    private InventorySlot inv5;
+    private InventorySlot inv6;
+
     private final WndRing INSTANCE;
 
     private int activeSlot = 0;
 
-    private final float yHeight;
-    private final Window ownerWindow;
     private final Ring itemDisplayed;
 
     public WndRing(final Window owner, final Item item) {
         super(item);
 
         INSTANCE = this;
-        ownerWindow = owner;
         itemDisplayed = (Ring) item;
 
         float y = height;
@@ -103,15 +103,55 @@ public class WndRing extends WndInfoItem{
                     switch (activeSlot){
                         case 0:
                             inv1.getSprite().view(st);
-                            INSTANCE.layoutIcons(yHeight, true);
+                            INSTANCE.updateWindow(owner, true);
                             break;
                         case 1:
                             inv2.getSprite().view(st);
-                            INSTANCE.layoutIcons(yHeight, true);
+                            INSTANCE.updateWindow(owner, true);
                             break;
                         case 2:
                             inv3.getSprite().view(st);
-                            INSTANCE.layoutIcons(yHeight, true);
+                            INSTANCE.updateWindow(owner, true);
+                            break;
+                    }
+                }
+            }
+        };
+
+        WndBag.ItemSelector itemSelector2 = new WndBag.ItemSelector(){
+
+            @Override
+            public String textPrompt() {
+                return Messages.get(WndRing.class, "select_spell");
+            }
+
+            @Override
+            public boolean itemSelectable(Item item) {
+                return item instanceof Spell;
+            }
+
+            @Override
+            public void onSelect(Item i) {
+                if(i instanceof Spell){
+                    if(!(((Ring) item).spellSlots().get(activeSlot) instanceof Spell.PlaceHolder)){
+                        ((Ring) item).spellSlots().get(activeSlot).collect();
+                        GLog.p("?");
+                    }
+                    Spell st = (Spell) i.detach(Dungeon.hero.belongings.backpack);
+                    ((Ring) item).setSpell(st, activeSlot);
+                    ((Ring) item).spellSlots().set(activeSlot, st);
+                    switch (activeSlot){
+                        case 0:
+                            inv4.getSprite().view(st);
+                            INSTANCE.updateWindow(owner, true);
+                            break;
+                        case 1:
+                            inv5.getSprite().view(st);
+                            INSTANCE.updateWindow(owner, true);
+                            break;
+                        case 2:
+                            inv6.getSprite().view(st);
+                            INSTANCE.updateWindow(owner, true);
                             break;
                     }
                 }
@@ -144,7 +184,7 @@ public class WndRing extends WndInfoItem{
                    Runestone runestone = new Runestone.PlaceHolder();
                    itemDisplayed.setRunestone(runestone, activeSlot);
                    inv1.getSprite().view(runestone);
-                   INSTANCE.layoutIcons(yHeight, true);
+                   INSTANCE.updateWindow(owner, true);
                    return super.onLongClick();
                }
            };
@@ -173,7 +213,7 @@ public class WndRing extends WndInfoItem{
                     Runestone runestone = new Runestone.PlaceHolder();
                     itemDisplayed.setRunestone(runestone, activeSlot);
                     inv2.getSprite().view(runestone);
-                    INSTANCE.layoutIcons(yHeight, true);
+                    INSTANCE.updateWindow(owner, true);
                     return super.onLongClick();
                }
            };
@@ -201,7 +241,92 @@ public class WndRing extends WndInfoItem{
                     Runestone runestone = new Runestone.PlaceHolder();
                     itemDisplayed.setRunestone(runestone, activeSlot);
                     inv3.getSprite().view(runestone);
-                    INSTANCE.layoutIcons(yHeight, true);
+                    INSTANCE.updateWindow(owner, true);
+                    return super.onLongClick();
+                }
+            };
+            inv4 = new InventorySlot(((Ring) item).spellSlots().get(0)){
+                boolean longClicked = false;
+
+                @Override
+                protected void onClick() {
+                    super.onClick();
+                    activeSlot = 0;
+                    if(!longClicked){
+                        GameScene.selectItem(itemSelector2);
+                    }
+                    longClicked = false;
+                }
+
+                @Override
+                protected boolean onLongClick() {
+                    activeSlot = 0;
+                    if(itemDisplayed.spellSlots().get(activeSlot) instanceof Spell.PlaceHolder){
+                        return super.onLongClick();
+                    }
+                    longClicked = true;
+                    itemDisplayed.spellSlots().get(activeSlot).collect();
+                    Spell spell = new Spell.PlaceHolder();
+                    itemDisplayed.setSpell(spell, activeSlot);
+                    inv4.getSprite().view(spell);
+                    INSTANCE.updateWindow(owner, true);
+                    return super.onLongClick();
+                }
+            };
+            inv5 = new InventorySlot(((Ring) item).spellSlots().get(1)){
+
+                boolean longClicked = false;
+
+                @Override
+                protected void onClick() {
+                    super.onClick();
+                    activeSlot = 1;
+                    if(!longClicked){
+                        GameScene.selectItem(itemSelector2);
+                    }
+                    longClicked = false;
+                }
+
+                @Override
+                protected boolean onLongClick() {
+                    activeSlot = 1;
+                    if(itemDisplayed.spellSlots().get(activeSlot) instanceof Spell.PlaceHolder){
+                        return super.onLongClick();
+                    }
+                    longClicked = true;
+                    itemDisplayed.spellSlots().get(activeSlot).collect();
+                    Spell spell = new Spell.PlaceHolder();
+                    itemDisplayed.setSpell(spell, activeSlot);
+                    inv5.getSprite().view(spell);
+                    INSTANCE.updateWindow(owner, true);
+                    return super.onLongClick();
+                }
+            };
+            inv6 = new InventorySlot(((Ring) item).spellSlots().get(2)){
+                boolean longClicked = false;
+
+                @Override
+                protected void onClick() {
+                    super.onClick();
+                    activeSlot = 2;
+                    if(!longClicked){
+                        GameScene.selectItem(itemSelector2);
+                    }
+                    longClicked = false;
+                }
+
+                @Override
+                protected boolean onLongClick() {
+                    activeSlot = 2;
+                    if(itemDisplayed.spellSlots().get(activeSlot) instanceof Spell.PlaceHolder){
+                        return super.onLongClick();
+                    }
+                    longClicked = true;
+                    itemDisplayed.spellSlots().get(activeSlot).collect();
+                    Spell spell = new Spell.PlaceHolder();
+                    itemDisplayed.setSpell(spell, activeSlot);
+                    inv6.getSprite().view(spell);
+                    INSTANCE.updateWindow(owner, true);
                     return super.onLongClick();
                 }
             };
@@ -239,63 +364,22 @@ public class WndRing extends WndInfoItem{
             add(inv2);
             inv3.setRect(inv2.width() + GAP + inv1.width() + GAP, y, slotWidth, slotHeight);
             add(inv3);
+
+            inv4.setRect(width-(inv1.width()), y, slotWidth, slotHeight);
+            add(inv4);
+            inv5.setRect((width-(2*(inv1.width())))-GAP, y, slotWidth, slotHeight);
+            add(inv5);
+            inv6.setRect((width -(3*(inv1.width())))-(2*GAP), y, slotWidth, slotHeight);
+            add(inv6);
         }
-        yHeight = y;
-        layoutIcons(yHeight, false);
+        updateWindow(owner, false);
         resize( width, (int)(y+GAP+slotHeight));
     }
 
-    private void layoutIcons(float y, boolean update){
-        ArrayList<Image> icons = new ArrayList<>();
-
-        //TODO: could make this a loop
-        if(((Runestone) inv1.item()).icon_dmg || ((Runestone) inv2.item()).icon_dmg || ((Runestone) inv3.item()).icon_dmg){
-            Image im_dmg = new Image(Assets.Sprites.ITEM_ICONS);
-            im_dmg.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_DAMAGE));
-            icons.add(im_dmg);
-        }
-        if(((Runestone) inv1.item()).icon_dr || ((Runestone) inv2.item()).icon_dr || ((Runestone) inv3.item()).icon_dr){
-            Image im_dr = new Image(Assets.Sprites.ITEM_ICONS);
-            im_dr.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_DMGRED));
-            icons.add(im_dr);
-        }
-        if(((Runestone) inv1.item()).icon_evasion || ((Runestone) inv2.item()).icon_evasion || ((Runestone) inv3.item()).icon_evasion){
-            Image im_evasion = new Image(Assets.Sprites.ITEM_ICONS);
-            im_evasion.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_EVASION));
-            icons.add(im_evasion);
-        }
-        if(((Runestone) inv1.item()).icon_acc || ((Runestone) inv2.item()).icon_acc || ((Runestone) inv3.item()).icon_acc){
-            Image im_acc = new Image(Assets.Sprites.ITEM_ICONS);
-            im_acc.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_ACCURACY));
-            icons.add(im_acc);
-        }
-        if(((Runestone) inv1.item()).icon_surprise || ((Runestone) inv2.item()).icon_surprise || ((Runestone) inv3.item()).icon_surprise){
-            Image im_surprise = new Image(Assets.Sprites.ITEM_ICONS);
-            im_surprise.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_SURPRISE));
-            icons.add(im_surprise);
-        }
-        if(((Runestone) inv1.item()).icon_speed || ((Runestone) inv2.item()).icon_speed || ((Runestone) inv3.item()).icon_speed){
-            Image im_speed = new Image(Assets.Sprites.ITEM_ICONS);
-            im_speed.frame(ItemSpriteSheet.Icons.film.get(ItemSpriteSheet.Icons.RUNESTONE_SPEED));
-            icons.add(im_speed);
-        }
-
-        int i = 0;
-        for(Image icon : icons){
-            i++;
-            icon.scale.set(1.5f);
-            if(i > 3){
-                icon.x = width - ((i-3)*12);
-                icon.y = y+icon.height()+2;
-            } else {
-                icon.x = width - (i*12);
-                icon.y = y;
-            }
-            add(icon);
-        }
+    public void updateWindow(Window owner, boolean update){
         if(update){
             INSTANCE.remove();
-            GameScene.show(new WndRing(ownerWindow, itemDisplayed));
+            GameScene.show(new WndRing(owner, itemDisplayed));
         }
     }
 

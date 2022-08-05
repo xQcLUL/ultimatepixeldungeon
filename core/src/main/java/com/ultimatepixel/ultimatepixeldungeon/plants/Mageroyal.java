@@ -27,6 +27,7 @@ package com.ultimatepixel.ultimatepixeldungeon.plants;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.BlobImmunity;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Weakness;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.HeroSubClass;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.PotionOfHealing;
@@ -62,8 +63,11 @@ public class Mageroyal extends Plant {
 			image = ItemSpriteSheet.SEED_MAGEROYAL;
 
 			plantClass = Mageroyal.class;
+		}
 
-			id = 6;
+		@Override
+		public void proc(Char attacker, Char defender) {
+			Buff.prolong( defender, Weakness.class, Weakness.DURATION );
 		}
 	}
 }

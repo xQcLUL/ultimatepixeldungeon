@@ -129,8 +129,6 @@ public abstract class Plant implements Bundlable {
 	
 	public static class Seed extends Item {
 
-		public int id = -1;
-
 		public static final String AC_PLANT	= "PLANT";
 		
 		private static final float TIME_TO_PLANT = 1f;
@@ -141,6 +139,8 @@ public abstract class Plant implements Bundlable {
 		}
 		
 		protected Class<? extends Plant> plantClass;
+
+		public void proc(Char attacker, Char defender){}
 		
 		@Override
 		public ArrayList<String> actions( Hero hero ) {

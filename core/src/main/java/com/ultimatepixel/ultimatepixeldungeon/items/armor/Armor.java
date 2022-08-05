@@ -59,8 +59,10 @@ import com.ultimatepixel.ultimatepixeldungeon.items.armor.glyphs.Stone;
 import com.ultimatepixel.ultimatepixeldungeon.items.armor.glyphs.Swiftness;
 import com.ultimatepixel.ultimatepixeldungeon.items.armor.glyphs.Thorns;
 import com.ultimatepixel.ultimatepixeldungeon.items.armor.glyphs.Viscosity;
+import com.ultimatepixel.ultimatepixeldungeon.items.stones.Runestone;
 import com.ultimatepixel.ultimatepixeldungeon.levels.Terrain;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
+import com.ultimatepixel.ultimatepixeldungeon.plants.Plant;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.HeroSprite;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSprite;
 import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
@@ -76,6 +78,58 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Armor extends EquipableItem {
+
+	private Plant.Seed seed1 = new Plant.Seed.PlaceHolder();
+	private Plant.Seed seed2 = new Plant.Seed.PlaceHolder();
+	private Plant.Seed seed3 = new Plant.Seed.PlaceHolder();
+
+	public void setSeed(Plant.Seed s, int slotActive) {
+		switch (slotActive){
+			case 0:
+				seed1 = s;
+				break;
+			case 1:
+				seed2 = s;
+				break;
+			case 2:
+				seed3 = s;
+				break;
+		}
+	}
+
+	public ArrayList<Plant.Seed> seedSlots() {
+		ArrayList<Plant.Seed> seedSlots = new ArrayList<>();
+		seedSlots.add( seed1 );
+		seedSlots.add( seed2 );
+		seedSlots.add( seed3 );
+		return seedSlots;
+	}
+
+	private Runestone stone1 = new Runestone.PlaceHolder();
+	private Runestone stone2 = new Runestone.PlaceHolder();
+	private Runestone stone3 = new Runestone.PlaceHolder();
+
+	public void setRunestone(Runestone s, int slotActive) {
+		switch (slotActive){
+			case 0:
+				stone1 = s;
+				break;
+			case 1:
+				stone2 = s;
+				break;
+			case 2:
+				stone3 = s;
+				break;
+		}
+	}
+
+	public ArrayList<Runestone> stoneSlots() {
+		ArrayList<Runestone> stoneSlots = new ArrayList<>();
+		stoneSlots.add( stone1 );
+		stoneSlots.add( stone2 );
+		stoneSlots.add( stone3 );
+		return stoneSlots;
+	}
 
 	protected static final String AC_DETACH       = "DETACH";
 	
@@ -295,6 +349,7 @@ public class Armor extends EquipableItem {
 		}
 
 		int max = tier * (2 + lvl) + augment.defenseFactor(lvl);
+		max += stone1.armorDRMax+stone2.armorDRMax+stone3.armorDRMax;
 		if (lvl > max){
 			return ((lvl - max)+1)/2;
 		} else {
@@ -312,6 +367,7 @@ public class Armor extends EquipableItem {
 		}
 
 		int max = DRMax(lvl);
+		max += stone1.armorDRMin+stone2.armorDRMin+stone3.armorDRMin;
 		if (lvl >= max){
 			return (lvl - max);
 		} else {
@@ -423,6 +479,10 @@ public class Armor extends EquipableItem {
 	}
 	
 	public int proc( Char attacker, Char defender, int damage ) {
+
+		for(Plant.Seed seed : seedSlots()){
+			seed.proc(defender, attacker);
+		}
 		
 		if (glyph != null && defender.buff(MagicImmune.class) == null) {
 			damage = glyph.proc( this, attacker, defender, damage );
@@ -498,13 +558,40 @@ public class Armor extends EquipableItem {
 		} else if (!isIdentified() && cursedKnown){
 			info += "\n\n" + Messages.get(Armor.class, "not_cursed");
 		}
+
+		if(hasStones()){
+			info += "\n\n";
+			String drmaxmin = Messages.get(Armor.class, "extra_max_armor")+": _"+(stone1.armorDRMax+stone2.armorDRMax+stone3.armorDRMax)+"_ \n"+
+					Messages.get(Armor.class, "extra_min_armor")+": _"+(stone1.armorDRMin+stone2.armorDRMin+stone3.armorDRMin)+"_ ";
+			info += drmaxmin;
+		}
 		
 		return info;
 	}
 
+	public boolean hasStones(){
+		return !(stone1 instanceof Runestone.PlaceHolder) ||
+				!(stone2 instanceof Runestone.PlaceHolder) ||
+				!(stone3 instanceof Runestone.PlaceHolder);
+	}
+
 	@Override
 	public Emitter emitter() {
-		if (seal == null) return super.emitter();
+		if (seal == null){
+			Emitter emitter = new Emitter();
+			if (!(stone1 instanceof Runestone.PlaceHolder)
+					|| !(stone2 instanceof Runestone.PlaceHolder)
+					|| !(stone3 instanceof Runestone.PlaceHolder)
+					|| !(seed1 instanceof Plant.Seed.PlaceHolder)
+					|| !(seed2 instanceof Plant.Seed.PlaceHolder)
+					|| !(seed3 instanceof Plant.Seed.PlaceHolder)) {
+				emitter.pos(ItemSpriteSheet.film.width(image)/2f + 2f, ItemSpriteSheet.film.height(image)/3f);
+				emitter.fillTarget = false;
+				emitter.pour(Speck.factory( Speck.RED_LIGHT ), 0.6f);
+				return emitter;
+			}
+			return super.emitter();
+		}
 		Emitter emitter = new Emitter();
 		emitter.pos(ItemSpriteSheet.film.width(image)/2f + 2f, ItemSpriteSheet.film.height(image)/3f);
 		emitter.fillTarget = false;

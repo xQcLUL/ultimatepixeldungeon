@@ -864,24 +864,6 @@ public class ItemSpriteSheet {
 			assignIconRect( POTION_DIVINE,      7, 7 );
 		}
 																				//16 free slots
-		private static final int RUNESTONES =                            xy(1, 9);  //16 slots
-		public static final int RUNESTONE_EVASION  = RUNESTONES+0;
-		public static final int RUNESTONE_DMGRED   = RUNESTONES+1;
-		public static final int RUNESTONE_DAMAGE   = RUNESTONES+2;
-		public static final int RUNESTONE_SPEED    = RUNESTONES+3;
-		public static final int RUNESTONE_SURPRISE = RUNESTONES+4;
-		public static final int RUNESTONE_ACCURACY = RUNESTONES+5;
-		static {
-			assignIconRect( RUNESTONE_EVASION,     	7, 7 );
-			assignIconRect( RUNESTONE_DMGRED,     	7, 7 );
-			assignIconRect( RUNESTONE_DAMAGE,     	7, 7 );
-			assignIconRect( RUNESTONE_SPEED,     	7, 7 );
-			assignIconRect( RUNESTONE_SURPRISE,     7, 7 );
-			assignIconRect( RUNESTONE_ACCURACY,     7, 7 );
-		}
-
-		                                                                                //16 free slots
-
 	}
 
 }

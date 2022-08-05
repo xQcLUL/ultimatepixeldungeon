@@ -29,6 +29,7 @@ import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Talent;
 import com.ultimatepixel.ultimatepixeldungeon.items.Generator;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
+import com.ultimatepixel.ultimatepixeldungeon.items.armor.Armor;
 import com.ultimatepixel.ultimatepixeldungeon.items.artifacts.Artifact;
 import com.ultimatepixel.ultimatepixeldungeon.items.artifacts.CloakOfShadows;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.Bag;
@@ -106,6 +107,8 @@ public class WndQuickBag extends Window {
 							Game.scene().addToFront(new WndRing(WndQuickBag.this, item));
 						} else if(item instanceof MeleeWeapon && item.isIdentified()){
 							GameScene.show(new WndWeapon(WndQuickBag.this, item));
+						} else if(item instanceof Armor && item.isIdentified()){
+							GameScene.show(new WndArmor(WndQuickBag.this, item));
 						} else {
 							Game.scene().addToFront(new WndUseItem(WndQuickBag.this, item));
 						}
@@ -128,6 +131,8 @@ public class WndQuickBag extends Window {
 						Game.scene().addToFront(new WndRing(WndQuickBag.this, item));
 					} else if(item instanceof MeleeWeapon && item.isIdentified()){
 						GameScene.show(new WndWeapon(WndQuickBag.this, item));
+					} else if(item instanceof Armor && item.isIdentified()){
+						GameScene.show(new WndArmor(WndQuickBag.this, item));
 					} else {
 						Game.scene().addToFront(new WndUseItem(WndQuickBag.this, item));
 					}

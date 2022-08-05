@@ -62,6 +62,9 @@ public class StoneOfIntuition extends InventoryStone {
 
 		extraMaxDmgWeapon = 2;
 		extraMinDmgWeapon = -2;
+
+		armorDRMax = -6;
+		armorDRMin = 6;
 	}
 
 	@Override

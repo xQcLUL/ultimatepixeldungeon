@@ -67,11 +67,15 @@ public class Blindweed extends Plant {
 	
 	public static class Seed extends Plant.Seed {
 		{
-			id = 1;
 
 			image = ItemSpriteSheet.SEED_BLINDWEED;
 
 			plantClass = Blindweed.class;
+		}
+
+		@Override
+		public void proc(Char attacker, Char defender) {
+			new Blindweed().activate( defender );
 		}
 	}
 }

@@ -52,6 +52,9 @@ public class StoneOfEnchantment extends InventoryStone {
 
 		extraMaxDmgWeapon = 2;
 		extraMinDmgWeapon = -2;
+
+		armorDRMax = -4;
+		armorDRMin = 4;
 	}
 
 	@Override

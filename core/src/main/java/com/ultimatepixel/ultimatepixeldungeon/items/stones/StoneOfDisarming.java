@@ -59,6 +59,9 @@ public class StoneOfDisarming extends Runestone {
 
 		extraMaxDmgWeapon = -1;
 		extraMinDmgWeapon = 1;
+
+		armorDRMax = 4;
+		armorDRMin = -4;
 	}
 
 	@Override

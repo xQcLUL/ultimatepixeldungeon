@@ -37,6 +37,7 @@ import com.ultimatepixel.ultimatepixeldungeon.items.Generator;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.items.ItemStatusHandler;
 import com.ultimatepixel.ultimatepixeldungeon.items.KindofMisc;
+import com.ultimatepixel.ultimatepixeldungeon.items.spells.Spell;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.Runestone;
 import com.ultimatepixel.ultimatepixeldungeon.journal.Catalog;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
@@ -106,6 +107,32 @@ public class Ring extends KindofMisc {
 		stoneSlots.add( stone2 );
 		stoneSlots.add( stone3 );
 		return stoneSlots;
+	}
+
+	private Spell spell1 = new Spell.PlaceHolder();
+	private Spell spell2 = new Spell.PlaceHolder();
+	private Spell spell3 = new Spell.PlaceHolder();
+
+	public void setSpell(Spell s, int slotActive) {
+		switch (slotActive){
+			case 0:
+				spell1 = s;
+				break;
+			case 1:
+				spell2 = s;
+				break;
+			case 2:
+				spell3 = s;
+				break;
+		}
+	}
+
+	public ArrayList<Spell> spellSlots() {
+		ArrayList<Spell> spellSlots = new ArrayList<>();
+		spellSlots.add( spell1 );
+		spellSlots.add( spell2 );
+		spellSlots.add( spell3 );
+		return spellSlots;
 	}
 
 	private static final LinkedHashMap<String, Integer> gems = new LinkedHashMap<String, Integer>() {
@@ -299,10 +326,19 @@ public class Ring extends KindofMisc {
 		return this;
 	}
 
+	public int proc(final Char enemy, int damage){
+		return damage;
+	}
+
 	@Override
 	public Emitter emitter() {
 		Emitter emitter = new Emitter();
-		if (!(stone1 instanceof Runestone.PlaceHolder) || !(stone2 instanceof Runestone.PlaceHolder) || !(stone3 instanceof Runestone.PlaceHolder)) {
+		if (!(stone1 instanceof Runestone.PlaceHolder)
+				|| !(stone2 instanceof Runestone.PlaceHolder)
+				|| !(stone3 instanceof Runestone.PlaceHolder)
+				|| !(spell1 instanceof Spell.PlaceHolder)
+				|| !(spell2 instanceof Spell.PlaceHolder)
+				|| !(spell3 instanceof Spell.PlaceHolder)) {
 			emitter.pos(ItemSpriteSheet.film.width(image)/2f + 2f, ItemSpriteSheet.film.height(image)/3f);
 			emitter.fillTarget = false;
 			emitter.pour(Speck.factory( Speck.RED_LIGHT ), 0.6f);

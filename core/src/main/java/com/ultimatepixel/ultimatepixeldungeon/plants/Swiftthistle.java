@@ -28,6 +28,7 @@ import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Haste;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Slow;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.HeroSubClass;
 import com.ultimatepixel.ultimatepixeldungeon.actors.mobs.Mob;
 import com.ultimatepixel.ultimatepixeldungeon.levels.traps.Trap;
@@ -63,8 +64,11 @@ public class Swiftthistle extends Plant {
 			image = ItemSpriteSheet.SEED_SWIFTTHISTLE;
 			
 			plantClass = Swiftthistle.class;
+		}
 
-			id = 12;
+		@Override
+		public void proc(Char attacker, Char defender) {
+			Buff.prolong( defender, Slow.class, Slow.DURATION );
 		}
 	}
 	

@@ -58,10 +58,6 @@ import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfRage;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfUpgrade;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfDeepSleep;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfFlock;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfIntuition;
-import com.ultimatepixel.ultimatepixeldungeon.items.stones.StoneOfShock;
 import com.ultimatepixel.ultimatepixeldungeon.items.wands.WandOfMagicMissile;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.SpiritBow;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee.Dagger;
@@ -71,11 +67,6 @@ import com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee.WornShortsword;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
-import com.ultimatepixel.ultimatepixeldungeon.plants.Blindweed;
-import com.ultimatepixel.ultimatepixeldungeon.plants.Firebloom;
-import com.ultimatepixel.ultimatepixeldungeon.plants.Icecap;
-import com.ultimatepixel.ultimatepixeldungeon.plants.Stormvine;
-import com.ultimatepixel.ultimatepixeldungeon.plants.Swiftthistle;
 import com.watabou.utils.DeviceCompat;
 
 public enum HeroClass {
@@ -109,17 +100,6 @@ public enum HeroClass {
 		waterskin.collect();
 
 		new ScrollOfIdentify().identify();
-
-		//TODO: remove
-		new Blindweed.Seed().collect();
-		new Firebloom.Seed().collect();
-		new Swiftthistle.Seed().collect();
-		new Icecap.Seed().collect();
-		new Stormvine.Seed().collect();
-		new StoneOfShock().identify().collect();
-		new StoneOfIntuition().identify().collect();
-		new StoneOfFlock().identify().collect();
-		new StoneOfDeepSleep().identify().collect();
 
 		switch (this) {
 			case WARRIOR:

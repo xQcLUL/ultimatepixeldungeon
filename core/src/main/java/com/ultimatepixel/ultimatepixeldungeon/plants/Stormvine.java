@@ -56,8 +56,11 @@ public class Stormvine extends Plant {
 			image = ItemSpriteSheet.SEED_STORMVINE;
 
 			plantClass = Stormvine.class;
+		}
 
-			id = 10;
+		@Override
+		public void proc(Char attacker, Char defender) {
+			Buff.affect( defender, Vertigo.class, Vertigo.DURATION);
 		}
 	}
 }

@@ -57,6 +57,9 @@ public class StoneOfShock extends Runestone {
 
 		extraMaxDmgWeapon = 3;
 		extraMinDmgWeapon = -3;
+
+		armorDRMax = 6;
+		armorDRMin = -6;
 	}
 	
 	@Override

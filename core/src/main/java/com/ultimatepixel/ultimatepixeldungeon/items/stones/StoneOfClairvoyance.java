@@ -50,6 +50,9 @@ public class StoneOfClairvoyance extends Runestone {
 
 		extraMaxDmgWeapon = -2;
 		extraMinDmgWeapon = 2;
+
+		armorDRMax = 2;
+		armorDRMin = -2;
 	}
 	
 	@Override

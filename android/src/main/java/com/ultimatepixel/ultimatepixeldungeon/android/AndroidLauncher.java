@@ -42,8 +42,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.ultimatepixel.ultimatepixeldungeon.UPDSettings;
 import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
-import com.watabou.noosa.Game;
 import com.ultimatepixel.ultimatepixeldungeon.ui.Button;
+import com.watabou.noosa.Game;
 import com.watabou.utils.FileUtils;
 
 public class AndroidLauncher extends AndroidApplication {

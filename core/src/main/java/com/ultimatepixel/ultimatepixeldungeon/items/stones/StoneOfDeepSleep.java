@@ -46,6 +46,9 @@ public class StoneOfDeepSleep extends Runestone {
 
 		extraMaxDmgWeapon = -3;
 		extraMinDmgWeapon = 3;
+
+		armorDRMax = 3;
+		armorDRMin = -3;
 	}
 	
 	@Override

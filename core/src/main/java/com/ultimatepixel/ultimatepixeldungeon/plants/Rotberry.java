@@ -28,6 +28,7 @@ import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.AdrenalineSurge;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Ooze;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.HeroSubClass;
 import com.ultimatepixel.ultimatepixeldungeon.effects.CellEmitter;
@@ -68,10 +69,13 @@ public class Rotberry extends Plant {
 			plantClass = Rotberry.class;
 
 			unique = true;
-
-			id = 7;
 		}
-		
+
+		@Override
+		public void proc(Char attacker, Char defender) {
+			Buff.affect( defender, Ooze.class).set( Ooze.DURATION );
+		}
+
 		@Override
 		public int value() {
 			return 30 * quantity;

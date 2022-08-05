@@ -27,6 +27,7 @@ package com.ultimatepixel.ultimatepixeldungeon.plants;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Cripple;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Healing;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.HeroSubClass;
@@ -68,8 +69,11 @@ public class Sungrass extends Plant {
 			plantClass = Sungrass.class;
 
 			bones = true;
+		}
 
-			id = 11;
+		@Override
+		public void proc(Char attacker, Char defender) {
+			Buff.prolong( defender, Cripple.class, Cripple.DURATION );
 		}
 	}
 	

@@ -44,6 +44,5 @@ public class BlandfruitBush extends Plant {
 		{
 			plantClass = BlandfruitBush.class;
 		}
-
 	}
 }

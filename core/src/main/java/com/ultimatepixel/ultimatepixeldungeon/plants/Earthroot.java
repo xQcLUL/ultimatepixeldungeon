@@ -28,6 +28,7 @@ import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Barkskin;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
+import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Roots;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.HeroSubClass;
 import com.ultimatepixel.ultimatepixeldungeon.effects.CellEmitter;
 import com.ultimatepixel.ultimatepixeldungeon.effects.particles.EarthParticle;
@@ -68,8 +69,11 @@ public class Earthroot extends Plant {
 			plantClass = Earthroot.class;
 
 			bones = true;
+		}
 
-			id = 2;
+		@Override
+		public void proc(Char attacker, Char defender) {
+			Buff.prolong( defender, Roots.class, Roots.DURATION );
 		}
 	}
 	

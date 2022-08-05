@@ -45,6 +45,9 @@ public class StoneOfBlink extends Runestone {
 
 		extraMaxDmgWeapon = -1;
 		extraMinDmgWeapon = 1;
+
+		armorDRMax = -2;
+		armorDRMin = 2;
 	}
 	
 	private static Ballistica throwPath;

@@ -84,8 +84,11 @@ public class Fadeleaf extends Plant {
 			image = ItemSpriteSheet.SEED_FADELEAF;
 
 			plantClass = Fadeleaf.class;
+		}
 
-			id = 3;
+		@Override
+		public void proc(Char attacker, Char defender) {
+			ScrollOfTeleportation.teleportChar( defender );
 		}
 	}
 }

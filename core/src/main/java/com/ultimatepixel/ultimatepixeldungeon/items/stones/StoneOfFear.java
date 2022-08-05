@@ -49,6 +49,9 @@ public class StoneOfFear extends Runestone {
 
 		extraMaxDmgWeapon = -1;
 		extraMinDmgWeapon = 1;
+
+		armorDRMax = -5;
+		armorDRMin = 5;
 	}
 	
 	@Override

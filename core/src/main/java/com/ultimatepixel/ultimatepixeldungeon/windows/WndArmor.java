@@ -28,10 +28,10 @@ package com.ultimatepixel.ultimatepixeldungeon.windows;
 
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
+import com.ultimatepixel.ultimatepixeldungeon.items.armor.Armor;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.Bag;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.VelvetPouch;
 import com.ultimatepixel.ultimatepixeldungeon.items.stones.Runestone;
-import com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.plants.Plant;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.GameScene;
@@ -42,7 +42,7 @@ import com.ultimatepixel.ultimatepixeldungeon.ui.Window;
 
 import java.util.ArrayList;
 
-public class WndWeapon extends WndInfoItem{
+public class WndArmor extends WndInfoItem{
 
     private static final float BUTTON_HEIGHT	= 16;
 
@@ -58,14 +58,14 @@ public class WndWeapon extends WndInfoItem{
 
     private int activeSlot = 0;
 
-    private final MeleeWeapon itemDisplayed;
+    private final Armor itemDisplayed;
 
-    private final WndWeapon INSTANCE;
+    private final WndArmor INSTANCE;
 
-    public WndWeapon(final Window owner, final Item item) {
+    public WndArmor(final Window owner, final Item item) {
         super(item);
 
-        itemDisplayed = (MeleeWeapon) item;
+        itemDisplayed = (Armor) item;
         INSTANCE = this;
 
         float y = height;
@@ -93,12 +93,12 @@ public class WndWeapon extends WndInfoItem{
             @Override
             public void onSelect(Item i) {
                 if(i instanceof Plant.Seed){
-                    if(!(((MeleeWeapon) item).seedSlots().get(activeSlot) instanceof Plant.Seed.PlaceHolder)){
-                        ((MeleeWeapon) item).seedSlots().get(activeSlot).collect();
+                    if(!(((Armor) item).seedSlots().get(activeSlot) instanceof Plant.Seed.PlaceHolder)){
+                        ((Armor) item).seedSlots().get(activeSlot).collect();
                     }
                     Plant.Seed seed = (Plant.Seed) i.detach(Dungeon.hero.belongings.backpack);
-                    ((MeleeWeapon) item).setSeed(seed, activeSlot);
-                    ((MeleeWeapon) item).seedSlots().set(activeSlot, seed);
+                    ((Armor) item).setSeed(seed, activeSlot);
+                    ((Armor) item).seedSlots().set(activeSlot, seed);
                     switch (activeSlot){
                         case 0:
                             inv1.getSprite().view(seed);
@@ -137,12 +137,12 @@ public class WndWeapon extends WndInfoItem{
             @Override
             public void onSelect(Item i) {
                 if(i instanceof Runestone){
-                    if(!(((MeleeWeapon) item).stoneSlots().get(activeSlot) instanceof Runestone.PlaceHolder)){
-                        ((MeleeWeapon) item).stoneSlots().get(activeSlot).collect();
+                    if(!(((Armor) item).stoneSlots().get(activeSlot) instanceof Runestone.PlaceHolder)){
+                        ((Armor) item).stoneSlots().get(activeSlot).collect();
                     }
                     Runestone st = (Runestone) i.detach(Dungeon.hero.belongings.backpack);
-                    ((MeleeWeapon) item).setRunestone(st, activeSlot);
-                    ((MeleeWeapon) item).stoneSlots().set(activeSlot, st);
+                    ((Armor) item).setRunestone(st, activeSlot);
+                    ((Armor) item).stoneSlots().set(activeSlot, st);
                     switch (activeSlot){
                         case 0:
                             inv4.getSprite().view(st);
@@ -163,7 +163,7 @@ public class WndWeapon extends WndInfoItem{
 
         if (Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(item) && item != null) {
             y += GAP;
-           inv1 = new InventorySlot(((MeleeWeapon) item).seedSlots().get(0)){
+           inv1 = new InventorySlot(((Armor) item).seedSlots().get(0)){
                boolean longClicked = false;
 
                 @Override
@@ -191,7 +191,7 @@ public class WndWeapon extends WndInfoItem{
                    return super.onLongClick();
                }
            };
-           inv2 = new InventorySlot(((MeleeWeapon) item).seedSlots().get(1)){
+           inv2 = new InventorySlot(((Armor) item).seedSlots().get(1)){
 
                boolean longClicked = false;
 
@@ -220,7 +220,7 @@ public class WndWeapon extends WndInfoItem{
                     return super.onLongClick();
                }
            };
-           inv3 = new InventorySlot(((MeleeWeapon) item).seedSlots().get(2)){
+           inv3 = new InventorySlot(((Armor) item).seedSlots().get(2)){
                 boolean longClicked = false;
 
                 @Override
@@ -248,7 +248,7 @@ public class WndWeapon extends WndInfoItem{
                     return super.onLongClick();
                 }
             };
-            inv4 = new InventorySlot(((MeleeWeapon) item).stoneSlots().get(0)){
+            inv4 = new InventorySlot(((Armor) item).stoneSlots().get(0)){
                 boolean longClicked = false;
 
                 @Override
@@ -276,7 +276,7 @@ public class WndWeapon extends WndInfoItem{
                     return super.onLongClick();
                 }
             };
-            inv5 = new InventorySlot(((MeleeWeapon) item).stoneSlots().get(1)){
+            inv5 = new InventorySlot(((Armor) item).stoneSlots().get(1)){
 
                 boolean longClicked = false;
 
@@ -305,7 +305,7 @@ public class WndWeapon extends WndInfoItem{
                     return super.onLongClick();
                 }
             };
-            inv6 = new InventorySlot(((MeleeWeapon) item).stoneSlots().get(2)){
+            inv6 = new InventorySlot(((Armor) item).stoneSlots().get(2)){
                 boolean longClicked = false;
 
                 @Override
@@ -382,7 +382,7 @@ public class WndWeapon extends WndInfoItem{
     public void updateWindow(Window owner, boolean update){
         if(update){
             INSTANCE.remove();
-            GameScene.show(new WndWeapon(owner, itemDisplayed));
+            GameScene.show(new WndArmor(owner, itemDisplayed));
         }
     }
 
