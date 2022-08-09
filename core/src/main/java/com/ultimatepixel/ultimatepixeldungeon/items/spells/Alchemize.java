@@ -26,6 +26,7 @@ package com.ultimatepixel.ultimatepixeldungeon.items.spells;
 
 import com.ultimatepixel.ultimatepixeldungeon.Assets;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
+import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
@@ -44,6 +45,11 @@ public class Alchemize extends Spell {
 	
 	{
 		image = ItemSpriteSheet.ALCHEMIZE;
+	}
+
+	@Override
+	public void proc(Char enemy) {
+		//TODO: make effect
 	}
 
 	private static WndBag parentWnd;

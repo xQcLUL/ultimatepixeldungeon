@@ -39,6 +39,7 @@ import com.ultimatepixel.ultimatepixeldungeon.items.bags.PotionBandolier;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.ScrollHolder;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.VelvetPouch;
 import com.ultimatepixel.ultimatepixeldungeon.items.rings.Ring;
+import com.ultimatepixel.ultimatepixeldungeon.items.wands.Wand;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.GameScene;
@@ -49,6 +50,7 @@ import com.ultimatepixel.ultimatepixeldungeon.windows.WndArmor;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndBag;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndRing;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndUseItem;
+import com.ultimatepixel.ultimatepixeldungeon.windows.WndWand;
 import com.ultimatepixel.ultimatepixeldungeon.windows.WndWeapon;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.GameAction;
@@ -503,12 +505,14 @@ public class InventoryPane extends Component {
 				updateInventory();
 			} else {
 				targetingSlot = this;
-				if(item instanceof Ring && ((Ring) item).isKnown()){
+				if(item instanceof Ring && ((Ring) item).isKnown() && item.isIdentified()){
 					GameScene.show(new WndRing( null, item ));
 				} else if(item instanceof MeleeWeapon && item.isIdentified()){
 					GameScene.show(new WndWeapon(null, item));
 				} else if(item instanceof Armor && item.isIdentified()){
 					GameScene.show(new WndArmor(null, item));
+				} else if(item instanceof Wand && item.isIdentified()){
+					GameScene.show(new WndWand(null, item));
 				} else {
 					GameScene.show(new WndUseItem( null, item ));
 				}

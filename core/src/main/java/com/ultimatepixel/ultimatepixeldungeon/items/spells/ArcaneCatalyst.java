@@ -24,6 +24,7 @@
 
 package com.ultimatepixel.ultimatepixeldungeon.items.spells;
 
+import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.Scroll;
@@ -53,7 +54,12 @@ public class ArcaneCatalyst extends Spell {
 	{
 		image = ItemSpriteSheet.SCROLL_CATALYST;
 	}
-	
+
+	@Override
+	public void proc(Char enemy) {
+		//TODO: make effect
+	}
+
 	private static HashMap<Class<? extends Scroll>, Float> scrollChances = new HashMap<>();
 	static{
 		scrollChances.put( ScrollOfIdentify.class,      3f );

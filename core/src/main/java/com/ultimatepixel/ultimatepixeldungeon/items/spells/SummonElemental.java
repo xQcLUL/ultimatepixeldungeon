@@ -71,6 +71,26 @@ public class SummonElemental extends Spell {
 	private Class<? extends Elemental> summonClass = Elemental.AllyNewBornElemental.class;
 
 	@Override
+	public void proc(Char enemy) {
+		ArrayList<Integer> spawnPoints = new ArrayList<>();
+
+		for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
+			int p = enemy.pos + PathFinder.NEIGHBOURS8[i];
+			if (Actor.findChar( p ) == null && Dungeon.level.passable[p]) {
+				spawnPoints.add( p );
+			}
+		}
+
+		Elemental elemental = Reflection.newInstance(summonClass);
+		GameScene.add( elemental );
+		Buff.affect(elemental, InvisAlly.class);
+		elemental.setSummonedALly();
+		elemental.HP = elemental.HT;
+		ScrollOfTeleportation.appear( elemental, Random.element(spawnPoints) );
+		curUser.spendAndNext(Actor.TICK);
+	}
+
+	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		actions.add(AC_IMBUE);

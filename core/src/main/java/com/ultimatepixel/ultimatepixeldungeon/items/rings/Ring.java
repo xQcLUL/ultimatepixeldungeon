@@ -327,6 +327,9 @@ public class Ring extends KindofMisc {
 	}
 
 	public int proc(final Char enemy, int damage){
+		for(Spell spell : spellSlots()){
+			spell.proc(enemy);
+		}
 		return damage;
 	}
 
@@ -428,6 +431,9 @@ public class Ring extends KindofMisc {
 	private static final String STONE1		    = "stone_1";
 	private static final String STONE2		    = "stone_2";
 	private static final String STONE3		    = "stone_3";
+	private static final String SPELL1		    = "spell_1";
+	private static final String SPELL2		    = "spell_2";
+	private static final String SPELL3		    = "spell_3";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -436,6 +442,9 @@ public class Ring extends KindofMisc {
 		bundle.put(STONE1, stone1.getClass());
 		bundle.put(STONE2, stone2.getClass());
 		bundle.put(STONE3, stone3.getClass());
+		bundle.put(SPELL1, spell1.getClass());
+		bundle.put(SPELL2, spell2.getClass());
+		bundle.put(SPELL3, spell3.getClass());
 
 	}
 
@@ -447,6 +456,9 @@ public class Ring extends KindofMisc {
 			stone1 = (Runestone) bundle.getClass(STONE1).newInstance();
 			stone2 = (Runestone) bundle.getClass(STONE2).newInstance();
 			stone3 = (Runestone) bundle.getClass(STONE3).newInstance();
+			spell1 = (Spell) bundle.getClass(SPELL1).newInstance();
+			spell2 = (Spell) bundle.getClass(SPELL2).newInstance();
+			spell3 = (Spell) bundle.getClass(SPELL3).newInstance();
 		} catch (Exception e) {
 			UltimatePixelDungeon.reportException(e);
 		}

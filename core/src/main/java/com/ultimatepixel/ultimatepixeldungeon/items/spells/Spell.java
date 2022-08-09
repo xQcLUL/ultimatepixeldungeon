@@ -25,6 +25,7 @@
 package com.ultimatepixel.ultimatepixeldungeon.items.spells;
 
 
+import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.MagicImmune;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
@@ -42,6 +43,10 @@ public abstract class Spell extends Item {
 		stackable = true;
 		defaultAction = AC_CAST;
 	}
+
+	public void proc(Char enemy){}
+
+	public void wandProc(Char target, int wandLevel, int chargesUsed){}
 	
 	@Override
 	public ArrayList<String> actions(Hero hero ) {

@@ -27,6 +27,7 @@ package com.ultimatepixel.ultimatepixeldungeon.items.armor;
 import com.ultimatepixel.ultimatepixeldungeon.Badges;
 import com.ultimatepixel.ultimatepixeldungeon.Challenges;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
+import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Actor;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
@@ -180,6 +181,12 @@ public class Armor extends EquipableItem {
 	private static final String MASTERY_POTION_BONUS = "mastery_potion_bonus";
 	private static final String SEAL            = "seal";
 	private static final String AUGMENT			= "augment";
+	private static final String STONE1		    = "stone_1";
+	private static final String STONE2		    = "stone_2";
+	private static final String STONE3		    = "stone_3";
+	private static final String SEED1		    = "seed_1";
+	private static final String SEED2		    = "seed_2";
+	private static final String SEED3		    = "seed_3";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -191,6 +198,12 @@ public class Armor extends EquipableItem {
 		bundle.put( MASTERY_POTION_BONUS, masteryPotionBonus );
 		bundle.put( SEAL, seal);
 		bundle.put( AUGMENT, augment);
+		bundle.put(STONE1, stone1.getClass());
+		bundle.put(STONE2, stone2.getClass());
+		bundle.put(STONE3, stone3.getClass());
+		bundle.put(SEED1, seed1.getClass());
+		bundle.put(SEED2, seed2.getClass());
+		bundle.put(SEED3, seed3.getClass());
 	}
 
 	@Override
@@ -204,6 +217,17 @@ public class Armor extends EquipableItem {
 		seal = (BrokenSeal)bundle.get(SEAL);
 		
 		augment = bundle.getEnum(AUGMENT, Augment.class);
+
+		try {
+			stone1 = (Runestone) bundle.getClass(STONE1).newInstance();
+			stone2 = (Runestone) bundle.getClass(STONE2).newInstance();
+			stone3 = (Runestone) bundle.getClass(STONE3).newInstance();
+			seed1 = (Plant.Seed) bundle.getClass(SEED1).newInstance();
+			seed2 = (Plant.Seed) bundle.getClass(SEED2).newInstance();
+			seed3 = (Plant.Seed) bundle.getClass(SEED3).newInstance();
+		} catch (Exception e) {
+			UltimatePixelDungeon.reportException(e);
+		}
 	}
 
 	@Override

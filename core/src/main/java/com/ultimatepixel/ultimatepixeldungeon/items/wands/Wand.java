@@ -27,6 +27,7 @@ package com.ultimatepixel.ultimatepixeldungeon.items.wands;
 import com.ultimatepixel.ultimatepixeldungeon.Assets;
 import com.ultimatepixel.ultimatepixeldungeon.Badges;
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
+import com.ultimatepixel.ultimatepixeldungeon.UltimatePixelDungeon;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Actor;
 import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Barrier;
@@ -43,12 +44,16 @@ import com.ultimatepixel.ultimatepixeldungeon.actors.hero.HeroSubClass;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Talent;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.ultimatepixel.ultimatepixeldungeon.effects.MagicMissile;
+import com.ultimatepixel.ultimatepixeldungeon.effects.Speck;
 import com.ultimatepixel.ultimatepixeldungeon.items.Item;
 import com.ultimatepixel.ultimatepixeldungeon.items.artifacts.TalismanOfForesight;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.Bag;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.MagicalHolster;
 import com.ultimatepixel.ultimatepixeldungeon.items.rings.RingOfEnergy;
+import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.InventoryScroll;
+import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.Scroll;
 import com.ultimatepixel.ultimatepixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.ultimatepixel.ultimatepixeldungeon.items.spells.Spell;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee.MagesStaff;
 import com.ultimatepixel.ultimatepixeldungeon.mechanics.Ballistica;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
@@ -59,6 +64,7 @@ import com.ultimatepixel.ultimatepixeldungeon.sprites.ItemSpriteSheet;
 import com.ultimatepixel.ultimatepixeldungeon.ui.QuickSlotButton;
 import com.ultimatepixel.ultimatepixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PointF;
@@ -93,6 +99,74 @@ public abstract class Wand extends Item {
 		defaultAction = AC_ZAP;
 		usesTargeting = true;
 		bones = true;
+	}
+
+	private Scroll scroll1 = new Scroll.PlaceHolder();
+	private Scroll scroll2 = new Scroll.PlaceHolder();
+	private Scroll scroll3 = new Scroll.PlaceHolder();
+
+	public void setScroll(Scroll s, int slotActive) {
+		switch (slotActive){
+			case 0:
+				scroll1 = s;
+				break;
+			case 1:
+				scroll2 = s;
+				break;
+			case 2:
+				scroll3 = s;
+				break;
+		}
+	}
+
+	public ArrayList<Scroll> scrollSlots() {
+		ArrayList<Scroll> scrollSlots = new ArrayList<>();
+		scrollSlots.add( scroll1 );
+		scrollSlots.add( scroll2 );
+		scrollSlots.add( scroll3 );
+		return scrollSlots;
+	}
+
+	private static Spell spell1 = new Spell.PlaceHolder();
+	private static Spell spell2 = new Spell.PlaceHolder();
+	private static Spell spell3 = new Spell.PlaceHolder();
+
+	public void setSpell(Spell s, int slotActive) {
+		switch (slotActive){
+			case 0:
+				spell1 = s;
+				break;
+			case 1:
+				spell2 = s;
+				break;
+			case 2:
+				spell3 = s;
+				break;
+		}
+	}
+
+	public ArrayList<Spell> spellSlots() {
+		ArrayList<Spell> spellSlots = new ArrayList<>();
+		spellSlots.add( spell1 );
+		spellSlots.add( spell2 );
+		spellSlots.add( spell3 );
+		return spellSlots;
+	}
+
+	@Override
+	public Emitter emitter() {
+		Emitter emitter = new Emitter();
+		if (!(scroll1 instanceof Scroll.PlaceHolder)
+				|| !(scroll2 instanceof Scroll.PlaceHolder)
+				|| !(scroll3 instanceof Scroll.PlaceHolder)
+				|| !(spell1 instanceof Spell.PlaceHolder)
+				|| !(spell2 instanceof Spell.PlaceHolder)
+				|| !(spell3 instanceof Spell.PlaceHolder)) {
+			emitter.pos(ItemSpriteSheet.film.width(image)/2f + 2f, ItemSpriteSheet.film.height(image)/3f);
+			emitter.fillTarget = false;
+			emitter.pour(Speck.factory( Speck.RED_LIGHT ), 0.6f);
+		}
+		return emitter;
 	}
 	
 	@Override
@@ -500,6 +574,12 @@ public abstract class Wand extends Item {
 	private static final String PARTIALCHARGE       = "partialCharge";
 	private static final String CURSE_INFUSION_BONUS= "curse_infusion_bonus";
 	private static final String RESIN_BONUS         = "resin_bonus";
+	private static final String SCROLL1		    	= "scroll_1";
+	private static final String SCROLL2		    	= "scroll_2";
+	private static final String SCROLL3		    	= "scroll_3";
+	private static final String SPELL1		    	= "spell_1";
+	private static final String SPELL2		    	= "spell_2";
+	private static final String SPELL3		    	= "spell_3";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -511,6 +591,12 @@ public abstract class Wand extends Item {
 		bundle.put( PARTIALCHARGE , partialCharge );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
 		bundle.put( RESIN_BONUS, resinBonus );
+		bundle.put(SCROLL1, scroll1.getClass());
+		bundle.put(SCROLL2, scroll2.getClass());
+		bundle.put(SCROLL3, scroll3.getClass());
+		bundle.put(SPELL1, spell1.getClass());
+		bundle.put(SPELL2, spell2.getClass());
+		bundle.put(SPELL3, spell3.getClass());
 	}
 	
 	@Override
@@ -526,6 +612,17 @@ public abstract class Wand extends Item {
 		curCharges = bundle.getInt( CUR_CHARGES );
 		curChargeKnown = bundle.getBoolean( CUR_CHARGE_KNOWN );
 		partialCharge = bundle.getFloat( PARTIALCHARGE );
+
+		try {
+			scroll1 = (InventoryScroll) bundle.getClass(SCROLL1).newInstance();
+			scroll2 = (InventoryScroll) bundle.getClass(SCROLL2).newInstance();
+			scroll3 = (InventoryScroll) bundle.getClass(SCROLL3).newInstance();
+			spell1 = (Spell) bundle.getClass(SPELL1).newInstance();
+			spell2 = (Spell) bundle.getClass(SPELL2).newInstance();
+			spell3 = (Spell) bundle.getClass(SPELL3).newInstance();
+		} catch (Exception e) {
+			UltimatePixelDungeon.reportException(e);
+		}
 	}
 	
 	@Override

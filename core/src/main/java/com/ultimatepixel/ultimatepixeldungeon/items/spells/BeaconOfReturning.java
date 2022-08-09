@@ -55,7 +55,12 @@ public class BeaconOfReturning extends Spell {
 	public int returnDepth	= -1;
 	public int returnBranch	= 0;
 	public int returnPos;
-	
+
+	@Override
+	public void proc(Char enemy) {
+		//TODO: make effect
+	}
+
 	@Override
 	protected void onCast(final Hero hero) {
 		

@@ -36,6 +36,7 @@ import com.ultimatepixel.ultimatepixeldungeon.items.bags.PotionBandolier;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.ScrollHolder;
 import com.ultimatepixel.ultimatepixeldungeon.items.bags.VelvetPouch;
 import com.ultimatepixel.ultimatepixeldungeon.items.rings.Ring;
+import com.ultimatepixel.ultimatepixeldungeon.items.wands.Wand;
 import com.ultimatepixel.ultimatepixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.ultimatepixel.ultimatepixeldungeon.messages.Messages;
 import com.ultimatepixel.ultimatepixeldungeon.scenes.GameScene;
@@ -296,6 +297,8 @@ public class WndBag extends WndTabbed {
 						GameScene.show(new WndWeapon(WndBag.this, item));
 					} else if(item instanceof Armor && item.isIdentified()){
 						GameScene.show(new WndArmor(WndBag.this, item));
+					} else if(item instanceof Wand && item.isIdentified()){
+						GameScene.show(new WndWand(WndBag.this, item));
 					} else {
 						Game.scene().addToFront(new WndUseItem(WndBag.this, item));
 					}

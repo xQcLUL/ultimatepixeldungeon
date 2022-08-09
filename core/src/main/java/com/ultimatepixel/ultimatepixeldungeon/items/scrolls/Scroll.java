@@ -25,6 +25,7 @@
 package com.ultimatepixel.ultimatepixeldungeon.items.scrolls;
 
 import com.ultimatepixel.ultimatepixeldungeon.Dungeon;
+import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Blindness;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Buff;
 import com.ultimatepixel.ultimatepixeldungeon.actors.buffs.Invisibility;
@@ -267,8 +268,11 @@ public abstract class Scroll extends Item {
 	public int energyVal() {
 		return 6 * quantity;
 	}
-	
-	public static class PlaceHolder extends Scroll {
+
+    public void wandProc(Char target, int wandLevel, int chargesUsed){
+	};
+
+    public static class PlaceHolder extends Scroll {
 		
 		{
 			image = ItemSpriteSheet.SCROLL_HOLDER;
@@ -277,7 +281,8 @@ public abstract class Scroll extends Item {
 		@Override
 		public boolean isSimilar(Item item) {
 			return ExoticScroll.regToExo.containsKey(item.getClass())
-					|| ExoticScroll.regToExo.containsValue(item.getClass());
+					|| ExoticScroll.regToExo.containsValue(item.getClass())
+					|| item instanceof Scroll;
 		}
 		
 		@Override
@@ -286,6 +291,11 @@ public abstract class Scroll extends Item {
 		@Override
 		public String info() {
 			return "";
+		}
+
+		@Override
+		public String name() {
+			return Messages.get(this, "name");
 		}
 	}
 	

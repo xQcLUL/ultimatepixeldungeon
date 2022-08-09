@@ -24,6 +24,7 @@
 
 package com.ultimatepixel.ultimatepixeldungeon.items.spells;
 
+import com.ultimatepixel.ultimatepixeldungeon.actors.Char;
 import com.ultimatepixel.ultimatepixeldungeon.actors.hero.Hero;
 import com.ultimatepixel.ultimatepixeldungeon.items.potions.exotic.PotionOfStormClouds;
 import com.ultimatepixel.ultimatepixeldungeon.levels.traps.GeyserTrap;
@@ -36,7 +37,16 @@ public class AquaBlast extends TargetedSpell {
 		image = ItemSpriteSheet.AQUA_BLAST;
 		usesTargeting = true;
 	}
-	
+
+	@Override
+	public void proc(Char enemy) {
+		int cell = enemy.pos;
+
+		GeyserTrap geyser = new GeyserTrap();
+		geyser.pos = cell;
+		geyser.activate();
+	}
+
 	@Override
 	protected void affectTarget(Ballistica bolt, Hero hero) {
 		int cell = bolt.collisionPos;
